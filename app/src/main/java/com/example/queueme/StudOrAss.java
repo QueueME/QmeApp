@@ -7,8 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
-import com.example.queueme.MySessionSwipeFunction.ScreenSlidePagerActivity;
-
 public class StudOrAss extends AppCompatActivity implements View.OnClickListener{
 
     private Button btnass;
@@ -41,14 +39,14 @@ public class StudOrAss extends AppCompatActivity implements View.OnClickListener
     public void onClick(View v) {
         //velger studass
         if (v==btnass){
-            startActivity(new Intent(StudOrAss.this, ChooseSubjectAss.class));
+            startActivity(new Intent(StudOrAss.this, com.example.queueme.Infoscreens.WelcomeActivityStudass.class));
         }
         //velger student
         if (v==btnstud){
-            startActivity(new Intent(StudOrAss.this, ChooseSubjectStud.class));
+            startActivity(new Intent(StudOrAss.this, com.example.queueme.Infoscreens.WelcomeActivityStudent.class));
         }
         if (v==swipe){
-            startActivity(new Intent(StudOrAss.this, ScreenSlidePagerActivity.class));
+            startActivity(new Intent(StudOrAss.this, com.example.queueme.Infoscreens.WelcomeActivityStudent.class));
         }
         if (v==home){
 

@@ -30,6 +30,9 @@
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".FeedAdapterSubject" />
         <activity android:name=".StartSession" />
+        <activity android:name=".Infoscreens.WelcomeActivityStudass" />
+        <activity android:name=".Infoscreens.WelcomeActivityStudent" />
+
         <activity android:name=".ChooseSubjectStud" />
         <activity android:name=".MySession" />
         <activity android:name=".InQueue" />
@@ -44,7 +47,7 @@
         <activity android:name=".ResetPasswordActivity" />
         <activity android:name=".MenyActivity" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".LoginActivity" />
     </application>
 
 </manifest>
