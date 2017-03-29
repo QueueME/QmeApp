@@ -32,7 +32,6 @@
         <activity android:name=".StartSession" />
         <activity android:name=".Infoscreens.WelcomeActivityStudass" />
         <activity android:name=".Infoscreens.WelcomeActivityStudent" />
-
         <activity android:name=".ChooseSubjectStud" />
         <activity android:name=".MySession" />
         <activity android:name=".InQueue" />
@@ -48,6 +47,7 @@
         <activity android:name=".MenyActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity" />
+        <activity android:name=".Notification.MainActivity3"></activity>
     </application>
 
 </manifest>

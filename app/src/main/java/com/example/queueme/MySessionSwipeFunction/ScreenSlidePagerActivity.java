@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.NotificationCompat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -55,10 +56,16 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
     private String emnekode;
     private String uid;
     private DatabaseReference ref;
+//notifikasjon
+    NotificationCompat.Builder notification;
+    private static final int uniqueID = 45612;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.screenslide);
+//notifikasjon
+        notification = new NotificationCompat.Builder(this);
+        notification.setAutoCancel(true);
 
         Intent intent = getIntent();
         emnenavn = intent.getStringExtra("emnenavn");
@@ -133,6 +140,9 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 NUM_PAGES+=1;
                 mPagerAdapter.notifyDataSetChanged();
+
+
+
 
                 //henter data og legger til personen som addes til listen over
                 fetchData(dataSnapshot);

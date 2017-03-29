@@ -1,13 +1,19 @@
 package com.example.queueme;
 
 import android.app.AlertDialog;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.NotificationCompat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.queueme.MySessionSwipeFunction.ScreenSlidePagerActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -31,11 +37,18 @@ public class InQueue extends AppCompatActivity {
     private ArrayList<Person> students = new ArrayList<Person>();
     private Button end;
 
-
+    //notifikasjon
+    NotificationCompat.Builder notification;
+    private static final int uniqueID = 45612;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.inqueue);
+
+        //notifikasjon
+        notification = new NotificationCompat.Builder(this);
+        notification.setAutoCancel(true);
+
 
 
         //henter info fra forrige activity
@@ -119,6 +132,24 @@ public class InQueue extends AppCompatActivity {
         myRef.child(emnekode).child("StudAssList").child(personuid).child("Queue").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                //bygg notifikasjonen
+                notification.setSmallIcon(R.drawable.queueme);
+                notification.setTicker("Dette er ticker");
+                notification.setWhen(System.currentTimeMillis());
+                notification.setContentTitle("Dette er tittel");
+                notification.setContentText("Dette er bodytext av notification");
+
+                Uri alarmSound = RingtoneManager.getActualDefaultRingtoneUri(InQueue.this, RingtoneManager.TYPE_NOTIFICATION);
+                notification.setSound(alarmSound);
+
+                Intent intent = new Intent(InQueue.this, ScreenSlidePagerActivity.class);
+                PendingIntent pendingIntent = PendingIntent.getActivity(InQueue.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                notification.setContentIntent(pendingIntent);
+
+                // bygg notifikasjon og send det ut til enhet
+                NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                nm.notify(uniqueID, notification.build());
+
                 //henter elementer som ble lagt til
                 fetchData(dataSnapshot);
                 //setter teksten i texview
