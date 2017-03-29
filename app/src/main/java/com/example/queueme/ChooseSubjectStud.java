@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -33,6 +34,7 @@ public class ChooseSubjectStud extends Activity {
     private Button popup;
     private ImageButton meny;
     private ImageButton home;
+    private String uid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +77,7 @@ public class ChooseSubjectStud extends Activity {
         //
         //henter info om bruker
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
+        this.uid = user.getUid();
         myRef.child("Person").child(user.getUid()).child("FavoriteStudSubject").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -87,9 +89,6 @@ public class ChooseSubjectStud extends Activity {
                 for (DataSnapshot child: children){
                     Subject subject = child.getValue(Subject.class);
                     subjects.add(subject);
-
-
-
                 }
 
                 //lager arrayadapter som viser listene
@@ -125,10 +124,6 @@ public class ChooseSubjectStud extends Activity {
 
                     }
                 });
-
-
-
-
 
 
             }
@@ -167,8 +162,6 @@ public class ChooseSubjectStud extends Activity {
                             Subject subject = child.getValue(Subject.class);
                             subjects.add(subject);
 
-
-
                         }
 
                         //lager arrayadapter som viser listene
@@ -204,19 +197,12 @@ public class ChooseSubjectStud extends Activity {
                                 //henter brukerdata
                                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-                                myRefdialog2.child("Person").child(user.getUid()).child("FavoriteStudSubject").push().setValue(subject);
+                                myRefdialog2.child("Person").child(user.getUid()).child("FavoriteStudSubject").child(subject.getEmnekode()).setValue(subject);
                                 Toast.makeText(ChooseSubjectStud.this,"Subject added to favorites",Toast.LENGTH_SHORT).show();
-
-
-
 
 
                             }
                         });
-
-
-
-
 
 
                     }
@@ -237,8 +223,46 @@ public class ChooseSubjectStud extends Activity {
             }
 
         });
+        l.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(ChooseSubjectStud.this, "LONG TOUCH",
+                        Toast.LENGTH_SHORT).show();
+                final Subject subject = (Subject) subjects.get(position);
+
+                final AlertDialog.Builder mbuilder = new AlertDialog.Builder(ChooseSubjectStud.this);
+                View mView= getLayoutInflater().inflate(R.layout.delete_subject_popup,null);
+                mbuilder.setView(mView);
+                final AlertDialog dialog = mbuilder.create();
+                dialog.show();
+                Button yes = (Button) mView.findViewById(R.id.yes);
+                Button no = (Button) mView.findViewById(R.id.no);
+
+                yes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        myRefdialog.child("Person").child(uid).child("FavoriteStudSubject").child(subject.getEmnekode()).removeValue();
+                        subjects.remove(subject);
+                        dialog.dismiss();
+                    }
+                });
+
+                no.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                Log.v("long clicked","pos: " + position);
+
+                return true;
+            }
+
+        });
 
     }
+
 
 
 }

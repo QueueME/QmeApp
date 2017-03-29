@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -33,6 +34,7 @@ public class ChooseSubjectAss extends Activity {
     private Button popup;
     private ImageButton meny;
     private ImageButton home;
+    private String uid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +80,7 @@ public class ChooseSubjectAss extends Activity {
         //
         //henter info om bruker
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        this.uid=user.getUid();
 
         myRef.child("Person").child(user.getUid()).child("FavoriteAssSubject").addValueEventListener(new ValueEventListener() {
             @Override
@@ -199,7 +202,7 @@ public class ChooseSubjectAss extends Activity {
                                 //henter brukerdata
                                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-                                myRefdialog2.child("Person").child(user.getUid()).child("FavoriteAssSubject").push().setValue(subject);
+                                myRefdialog2.child("Person").child(user.getUid()).child("FavoriteAssSubject").child(emnekode).setValue(subject);
                                 Toast.makeText(ChooseSubjectAss.this,"Subject added to favorites",Toast.LENGTH_SHORT).show();
 
 
@@ -233,7 +236,47 @@ public class ChooseSubjectAss extends Activity {
 
         });
 
-    }
+        l.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(ChooseSubjectAss.this, "LONG TOUCH",
+                        Toast.LENGTH_SHORT).show();
+                final Subject subject = (Subject) subjects.get(position);
+
+                final AlertDialog.Builder mbuilder = new AlertDialog.Builder(ChooseSubjectAss.this);
+                View mView= getLayoutInflater().inflate(R.layout.delete_subject_popup,null);
+                mbuilder.setView(mView);
+                final AlertDialog dialog = mbuilder.create();
+                dialog.show();
+                Button yes = (Button) mView.findViewById(R.id.yes);
+                Button no = (Button) mView.findViewById(R.id.no);
+
+                yes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        myRefdialog.child("Person").child(uid).child("FavoriteAssSubject").child(subject.getEmnekode()).removeValue();
+                        subjects.remove(subject);
+                        dialog.dismiss();
+                    }
+                });
+
+                no.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                Log.v("long clicked","pos: " + position);
+
+
+
+                return true;
+            }
+
+        });
+        }
 
 
 }
+
