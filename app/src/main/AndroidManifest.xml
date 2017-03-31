@@ -41,6 +41,9 @@
         <activity android:name=".Searchtest" />
         <activity android:name=".SignupActivity" />
         <activity android:name=".MainActivity" />
+        <activity android:name=".Infoscreens.WelcomeActivityStudass" />
+        <activity android:name=".Infoscreens.WelcomeActivityStudent" />
+
         <activity android:name=".ResetPasswordActivity" />
         <activity android:name=".MenyActivity" />
         <activity android:name=".RegisterActivity" />
