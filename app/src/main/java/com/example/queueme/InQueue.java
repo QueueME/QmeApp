@@ -1,14 +1,20 @@
 package com.example.queueme;
 
 import android.app.AlertDialog;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.NotificationCompat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.queueme.MySessionSwipeFunction.ScreenSlidePagerActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -33,12 +39,18 @@ public class InQueue extends AppCompatActivity {
     private ArrayList<Person> students = new ArrayList<Person>();
     private Button end;
 
+//notifikasjon
+    NotificationCompat.Builder notification;
+    private static final int uniqueID = 45612;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.inqueue);
 
-
+        //notifikasjon
+        notification = new NotificationCompat.Builder(this);
+        notification.setAutoCancel(true);
 
         //henter info fra forrige activity
         Intent intent = getIntent();
@@ -111,6 +123,31 @@ public class InQueue extends AppCompatActivity {
                 nrinline.setText("" + nrInline() + "");
                 Toast.makeText(InQueue.this, "Master",
                         Toast.LENGTH_SHORT).show();
+                if (!students.isEmpty()) {
+                    if ((students.get(0).getUid() == uid)) {
+                        //bygg notifikasjonen
+                        notification.setSmallIcon(R.drawable.astudass);
+                        notification.setTicker("Dette er ticker");
+                        notification.setWhen(System.currentTimeMillis());
+                        notification.setContentTitle("It's your turn");
+                        notification.setContentText("Seek out your student assistant and get your help :)");
+
+                        Uri alarmSound = RingtoneManager.getActualDefaultRingtoneUri(InQueue.this, RingtoneManager.TYPE_NOTIFICATION);
+                        notification.setSound(alarmSound);
+
+                        Intent intent = new Intent(InQueue.this, ScreenSlidePagerActivity.class);
+                        PendingIntent pendingIntent = PendingIntent.getActivity(InQueue.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                        notification.setContentIntent(pendingIntent);
+
+                        // bygg notifikasjon og send det ut til enhet
+                        NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                        nm.notify(uniqueID, notification.build());
+                        //
+                        Toast.makeText(InQueue.this, "You have been notified",
+                                Toast.LENGTH_SHORT).show();
+
+                    }
+                }
             }
 
             @Override
@@ -124,10 +161,11 @@ public class InQueue extends AppCompatActivity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
-                Long tsLong = System.currentTimeMillis()/1000;
-                String ts = tsLong.toString();
-                Toast.makeText(InQueue.this, ts,
-                        Toast.LENGTH_SHORT).show();
+
+               // Long tsLong = System.currentTimeMillis()/1000;
+               // String ts = tsLong.toString();
+               // Toast.makeText(InQueue.this, ts,
+               //         Toast.LENGTH_SHORT).show();
                 //henter elementer som ble lagt til
                /* Person person = dataSnapshot.getValue(Person.class);
 
