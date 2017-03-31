@@ -12,7 +12,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -32,15 +31,15 @@ public class ChooseSubjectAss extends Activity {
     //private EditText inputSearch;
     ArrayAdapter feedAdapter;
     private Button popup;
-    private ImageButton meny;
-    private ImageButton home;
+    private Button meny;
+    private Button home;
     private String uid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.choose_subject);
 
-        meny = (ImageButton) findViewById(R.id.meny);
+        meny = (Button) findViewById(R.id.meny);
         meny.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,7 +47,7 @@ public class ChooseSubjectAss extends Activity {
 
             }
         });
-        home = (ImageButton) findViewById(R.id.home);
+        home = (Button) findViewById(R.id.home);
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

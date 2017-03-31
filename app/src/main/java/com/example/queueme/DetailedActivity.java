@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -42,14 +41,14 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
     //private int queuenr;
     //private TextView antall;
     private Button queue;
-    private ImageButton meny;
-    private ImageButton home;
+    private Button meny;
+    private Button home;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sessioninfo);
 
-        meny = (ImageButton) findViewById(R.id.meny);
+        meny = (Button) findViewById(R.id.meny);
         meny.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,7 +56,7 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
 
             }
         });
-        home = (ImageButton) findViewById(R.id.home);
+        home = (Button) findViewById(R.id.home);
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -232,6 +231,9 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
         person.setEmail(user.getEmail());
         person.setName(myName);
         person.setUid(user.getUid());
+        Long tsLong = System.currentTimeMillis()/1000;
+        String ts = tsLong.toString();
+        person.setTimestamp(ts);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference();
         myRef.child("Subject").child(emnekode).child("StudAssList").child(personuid).child("Queue").child(uid).setValue(person);
