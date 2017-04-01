@@ -46,8 +46,8 @@
         android:layout_marginTop="-3dp"
         android:text="Available until:"
         android:textColor="@android:color/background_light"
-        app:layout_constraintLeft_toLeftOf="@+id/tvEmneNavn"
-        app:layout_constraintTop_toBottomOf="@+id/tvEmneNavn" />
+        app:layout_constraintLeft_toLeftOf="@+id/tvEmnenavn"
+        app:layout_constraintTop_toBottomOf="@+id/tvEmnenavn" />
 
 
 

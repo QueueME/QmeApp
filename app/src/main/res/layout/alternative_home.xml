@@ -4,35 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/background_light">
-
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/constraintLayout2"
-        android:layout_width="380dp"
-        android:layout_height="30dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
-
-        <TextView
-            android:id="@+id/textView28"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="8dp"
-            android:text="*The list shows all availible studasses in this subject "
-            android:textAlignment="center"
-            android:textColor="@color/colorPrimaryDark"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </android.support.constraint.ConstraintLayout>
+    android:background="@color/colorPrimaryDark">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -49,21 +21,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
-
-        <ImageView
-            android:id="@+id/imageView18"
-            android:layout_width="40dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="0dp"
-            android:layout_marginTop="0dp"
-            app:layout_constraintHorizontal_bias="0.533"
-            app:layout_constraintLeft_toRightOf="@+id/home"
-            app:layout_constraintRight_toLeftOf="@+id/textView21"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/signstud"
-            app:layout_constraintBottom_toBottomOf="@+id/home"
-            android:layout_marginBottom="0dp" />
 
         <Button
             android:id="@+id/meny"
@@ -97,10 +54,10 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
-            android:text="Stud.Asses"
+            android:text="Home"
             android:textAlignment="center"
             android:textColor="@android:color/background_light"
-            android:textSize="24sp"
+            android:textSize="36sp"
             app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -108,21 +65,61 @@
 
     </android.support.constraint.ConstraintLayout>
 
-    <ListView
-        android:id="@+id/listview"
-        android:layout_width="380dp"
-        android:layout_height="501dp"
-        android:layout_marginBottom="2dp"
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="318dp"
+        android:layout_height="280dp"
+        app:srcCompat="@drawable/frontpic"
+        android:layout_marginTop="15dp"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Interact as either Student assistant ot student"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_light"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.512"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+    <Button
+        android:id="@+id/yourbuttonname"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="22dp"
+        android:background="@drawable/buttonshape"
+        android:text="Student"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/yourbuttonname2" />
+
+    <Button
+        android:id="@+id/yourbuttonname2"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
-        android:divider="@android:color/background_light"
-        android:dividerHeight="2dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.473"
+        android:background="@drawable/buttonshape"
+        android:text="Student assistant"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
 </android.support.constraint.ConstraintLayout>
