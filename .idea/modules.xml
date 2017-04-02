@@ -3,8 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/QmeApp.iml" filepath="$PROJECT_DIR$/QmeApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/QmeApp2.iml" filepath="$PROJECT_DIR$/QmeApp2.iml" />
       <module fileurl="file://$PROJECT_DIR$/QueueMeAppPu.iml" filepath="$PROJECT_DIR$/QueueMeAppPu.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
