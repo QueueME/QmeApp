@@ -13,7 +13,7 @@ public class StudOrAss extends AppCompatActivity implements View.OnClickListener
     private Button swipe;
     private Button meny;
     private Button home;
-
+    private Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,29 +31,46 @@ public class StudOrAss extends AppCompatActivity implements View.OnClickListener
         meny.setOnClickListener(this);
         home = (Button) findViewById(R.id.home);
         home.setOnClickListener(this);
-
+        intent=getIntent();
     }
 
     @Override
     public void onClick(View v) {
         //velger studass
         if (v==btnass){
-            startActivity(new Intent(StudOrAss.this, com.example.queueme.Infoscreens.WelcomeActivityStudass.class));
+            btnass();
         }
         //velger student
         if (v==btnstud){
-            startActivity(new Intent(StudOrAss.this, com.example.queueme.Infoscreens.WelcomeActivityStudent.class));
+            btnstud();
         }
         if (v==swipe){
-            startActivity(new Intent(StudOrAss.this, com.example.queueme.Infoscreens.WelcomeActivityStudent.class));
+            swipe();
         }
-        if (v==home){
 
-        }
         if(v==meny){
-            startActivity(new Intent(StudOrAss.this, MenyActivity.class));
+            meny();
 
         }
 
+    }
+    public Intent getintent(){
+        return intent;
+
+    }
+    public void meny(){
+
+        this.intent = new Intent(StudOrAss.this, MenyActivity.class);
+
+        startActivity(intent);
+    }
+    public void swipe(){
+        startActivity(new Intent(StudOrAss.this, com.example.queueme.Infoscreens.WelcomeActivityStudent.class));
+    }
+    public void btnstud(){
+        startActivity(new Intent(StudOrAss.this, com.example.queueme.Infoscreens.WelcomeActivityStudent.class));
+    }
+    public void btnass(){
+        startActivity(new Intent(StudOrAss.this, com.example.queueme.Infoscreens.WelcomeActivityStudass.class));
     }
 }

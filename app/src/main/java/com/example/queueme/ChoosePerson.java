@@ -23,6 +23,45 @@ public class ChoosePerson extends AppCompatActivity {
     private Button meny;
     private Button home;
 
+    public String getEmnekode() {
+        return emnekode;
+    }
+
+    public void setEmnekode(String emnekode) {
+        this.emnekode = emnekode;
+    }
+
+    public String getEmnenavn() {
+        return emnenavn;
+    }
+
+    public void setEmnenavn(String emnenavn) {
+        this.emnenavn = emnenavn;
+    }
+
+    public Button getMeny() {
+        return meny;
+    }
+
+    public void setMeny(Button meny) {
+        this.meny = meny;
+    }
+
+    public Button getHome() {
+        return home;
+    }
+
+    public void setHome(Button home) {
+        this.home = home;
+    }
+
+
+    ListView v;
+
+    public ListView getListView(){
+        return v;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +85,7 @@ public class ChoosePerson extends AppCompatActivity {
         });
         //finner listview
         final ListView l=(ListView) findViewById(R.id.listview);
-
+        this.v = l;
         final ArrayList<Person> persons = new ArrayList<Person>();
         //henter ut info fra forrige side
         Intent intent = getIntent();
