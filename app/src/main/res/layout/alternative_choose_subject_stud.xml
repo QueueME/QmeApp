@@ -14,7 +14,6 @@
         android:layout_marginRight="0dp"
         android:layout_marginTop="0dp"
         android:background="@color/bg_screen1"
-        app:layout_constraintHorizontal_bias="0.416"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
@@ -27,9 +26,10 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
-            android:text="ALL AVAILIBLE STUDENT ASSISTANT IN THIS SUBJECT:"
+            android:text="ALL YOUR SUBJECTS:"
             android:textAlignment="center"
             android:textColor="@color/input_register"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -84,7 +84,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
-            android:text="Stud.Asses"
+            android:text="Subject"
             android:textAlignment="center"
             android:textColor="@android:color/background_light"
             android:textSize="30sp"
@@ -97,13 +97,13 @@
 
     <ListView
         android:id="@+id/listview"
-        android:layout_width="370dp"
-        android:layout_height="501dp"
-        android:layout_marginBottom="2dp"
+        android:layout_width="374dp"
+        android:layout_height="407dp"
+        android:layout_marginBottom="0dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
-        android:divider="@color/input_register"
+        android:divider="@color/bg_screen2"
         android:dividerHeight="0.2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -111,4 +111,21 @@
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
         app:layout_constraintVertical_bias="0.0" />
 
+    <Button
+        android:id="@+id/popup"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="500dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="0dp"
+        android:background="@color/colorPrimaryDark"
+        android:text="Add subjects"
+        android:textColor="@android:color/background_light"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/listview"
+        app:layout_constraintVertical_bias="1.0" />
 </android.support.constraint.ConstraintLayout>

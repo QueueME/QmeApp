@@ -37,7 +37,7 @@ public class ChooseSubjectAss extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.choose_subject);
+        setContentView(R.layout.alternative_choose_subject_stud);
 
         meny = (Button) findViewById(R.id.meny);
         meny.setOnClickListener(new View.OnClickListener() {

@@ -5,8 +5,8 @@
     <color name="colorAccent">#63a4b4</color>
 
     <!-- Screens background color-->
-    <color name="bg_screen1">#f64c73</color>
-    <color name="bg_screen2">#5eed6f</color>
+    <color name="bg_screen1">#ffb59f</color>
+    <color name="bg_screen2">#f3dc5c</color>
     <color name="bg_screen3">#afd6fc</color>
     <color name="bg_screen4">#6289bb</color>
 
@@ -23,9 +23,9 @@
     <color name="dot_light_screen4">#e4b5fc</color>
 
 
-    <color name="bg_login">#26ae90</color>
+    <color name="bg_login">#219ef0</color>
     <color name="bg_register">#2e3237</color>
-    <color name="bg_main">#3399ff</color>
+    <color name="bg_main">#6cb5fc</color>
     <color name="input_login">#222222</color>
     <color name="input_login_hint">#999999</color>
     <color name="input_register">#888888</color>
