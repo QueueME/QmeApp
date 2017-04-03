@@ -54,7 +54,7 @@
         app:srcCompat="@drawable/count" />
 
     <TextView
-        android:id="@+id/subjectinfo"
+        android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -206,8 +206,8 @@
         android:layout_marginTop="0dp"
         android:text="TextView"
         app:layout_constraintBottom_toTopOf="@+id/queue"
-        app:layout_constraintLeft_toLeftOf="@+id/subjectinfo"
-        app:layout_constraintRight_toRightOf="@+id/subjectinfo"
-        app:layout_constraintTop_toBottomOf="@+id/subjectinfo" />
+        app:layout_constraintLeft_toLeftOf="@+id/name"
+        app:layout_constraintRight_toRightOf="@+id/name"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
 
 </android.support.constraint.ConstraintLayout>

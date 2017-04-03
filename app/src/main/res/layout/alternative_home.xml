@@ -67,10 +67,10 @@
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="318dp"
-        android:layout_height="280dp"
+        android:layout_width="366dp"
+        android:layout_height="312dp"
         app:srcCompat="@drawable/frontpic"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="0dp"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
@@ -93,7 +93,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
     <Button
-        android:id="@+id/yourbuttonname"
+        android:id="@+id/btnstud"
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_marginLeft="8dp"
@@ -105,10 +105,10 @@
         android:textSize="14sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/yourbuttonname2" />
+        app:layout_constraintTop_toBottomOf="@+id/btnass" />
 
     <Button
-        android:id="@+id/yourbuttonname2"
+        android:id="@+id/btnass"
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_marginLeft="8dp"

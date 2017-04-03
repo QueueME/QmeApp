@@ -45,7 +45,7 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sessioninfo);
+        setContentView(R.layout.alternative_queueinfo);
 
         meny = (Button) findViewById(R.id.meny);
         meny.setOnClickListener(new View.OnClickListener() {
@@ -87,10 +87,10 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
         name = (TextView) findViewById(R.id.name);
 
 
-        subjectinfo = (TextView) findViewById(R.id.subjectinfo);
-        subjectinfo.setText(emnekode);
+        subjectinfo = (TextView) findViewById(R.id.name);
+        //subjectinfo.setText(emnekode);
         subnavn=(TextView) findViewById(R.id.subnavn);
-        subnavn.setText(emnenavn);
+        subnavn.setText(emnenavn+" " +emnekode);
 
         availible_until = (TextView) findViewById(R.id.avilible_until);
 
