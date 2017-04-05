@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -22,6 +23,9 @@ public class AddPerson extends AppCompatActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addperson);
+
+        //for å kunne teste
+        FirebaseApp.initializeApp(this);
 
         email=(EditText) findViewById(R.id.email);
         name =(EditText) findViewById(R.id.name);

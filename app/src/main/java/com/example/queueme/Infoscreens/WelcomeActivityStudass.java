@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.example.queueme.ChooseSubjectAss;
 import com.example.queueme.R;
+import com.google.firebase.FirebaseApp;
 
 public class WelcomeActivityStudass extends AppCompatActivity {
 
@@ -34,6 +35,9 @@ public class WelcomeActivityStudass extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //for å kunne teste
+        FirebaseApp.initializeApp(this);
 
         // Checking for first time launch - before calling setContentView()
         prefManager = new PrefManager(this);
