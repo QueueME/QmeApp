@@ -14,6 +14,8 @@ public class StudOrAss extends AppCompatActivity implements View.OnClickListener
     private Button meny;
     private Button home;
     private Intent intent;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,10 +56,7 @@ public class StudOrAss extends AppCompatActivity implements View.OnClickListener
         }
 
     }
-    public Intent getintent(){
-        return intent;
 
-    }
     public void meny(){
 
         this.intent = new Intent(StudOrAss.this, MenyActivity.class);

@@ -1,33 +1,47 @@
 package com.example.queueme;
 
+import android.content.Intent;
+import android.widget.Button;
+
+import com.example.queueme.Infoscreens.WelcomeActivityStudass;
+import com.example.queueme.Infoscreens.WelcomeActivityStudent;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.Shadows;
+import org.robolectric.annotation.Config;
+import org.robolectric.shadows.ShadowActivity;
 
-import android.app.Instrumentation.ActivityMonitor;
-import android.content.Intent;
+import static junit.framework.Assert.assertTrue;
 
-import com.example.queueme.Infoscreens.WelcomeActivityStudass;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by Eier on 03.04.2017.
  */
+
+@RunWith(RobolectricTestRunner.class)
+@Config(constants = BuildConfig.class)
+
 public class StudOrAssTest {
 
     StudOrAss studOrass;
-Intent intent2;
-
+    Intent intent2;
     Intent intent;
+
+    private StudOrAss activity;
+
+    private Button pressMeButton;
+
     @Before
     public void setUp() throws Exception {
-        studOrass = new StudOrAss();
-        Object s = com.example.queueme.Infoscreens.WelcomeActivityStudent.class;
-        MenyActivity m = new MenyActivity();
-       this.intent = new Intent(studOrass, (Class<?>) s);
-        this.intent2 = new Intent(studOrass, m.getClass());
+
+
+        activity = Robolectric.buildActivity(StudOrAss.class).create().get();
+        pressMeButton = (Button) activity.findViewById(R.id.meny);
 
     }
 
@@ -38,34 +52,56 @@ Intent intent2;
 
     @Test
     public void onCreate() throws Exception {
-        assertTrue(studOrass != null);
+        assertTrue(activity != null);
+    }
+
+
+
+
+
+        @Test
+        public void clickingMeny_shouldStartLoginActivity() {
+            StudOrAss mMainActivity = Robolectric.setupActivity(StudOrAss.class);
+            mMainActivity.findViewById(R.id.meny).performClick();
+
+            Intent expectedIntent = new Intent(mMainActivity, MenyActivity.class);
+
+            ShadowActivity shadowActivity = Shadows.shadowOf(mMainActivity);
+            Intent actualIntent = shadowActivity.getNextStartedActivity();
+
+            assertTrue(actualIntent.filterEquals(expectedIntent));
+        }
+
+    @Test
+    public void clickingBtnstud_shouldStartLoginActivity() {
+        StudOrAss MainActivity = Robolectric.setupActivity(StudOrAss.class);
+        MainActivity.findViewById(R.id.btnstud).performClick();
+
+        Intent expectedIntent = new Intent(MainActivity, WelcomeActivityStudent.class);
+
+        ShadowActivity shadowActivity = Shadows.shadowOf(MainActivity);
+        Intent actualIntent = shadowActivity.getNextStartedActivity();
+
+        assertTrue(actualIntent.filterEquals(expectedIntent));
     }
 
     @Test
-    public void onClick() throws Exception {
+    public void clickingBtnass_shouldStartLoginActivity() {
+        StudOrAss MainActivity = Robolectric.setupActivity(StudOrAss.class);
+        MainActivity.findViewById(R.id.btnass).performClick();
 
+        Intent expectedIntent = new Intent(MainActivity, WelcomeActivityStudass.class);
+
+        ShadowActivity shadowActivity = Shadows.shadowOf(MainActivity);
+        Intent actualIntent = shadowActivity.getNextStartedActivity();
+
+        assertTrue(actualIntent.filterEquals(expectedIntent));
     }
 
 
-    @Test
-    public void meny() throws Exception {
-        assertEquals(intent2, studOrass.getintent());
-    }
 
-    @Test
-    public void swipe() throws Exception {
 
-    }
 
-    @Test
-    public void btnstud() throws Exception {
-
-    }
-
-    @Test
-    public void btnass() throws Exception {
-
-    }
 
 
 
