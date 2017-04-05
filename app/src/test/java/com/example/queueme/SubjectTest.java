@@ -8,6 +8,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import static com.example.queueme.R.id.person;
 import static org.junit.Assert.*;
 
 /**
@@ -55,6 +56,17 @@ public class SubjectTest {
     public void testtoString() throws Exception {
         String s = "123 matte";
         assertEquals(s, sub.toString());
+    }
+    @Test
+    public void alt() throws Exception {
+        Subject sub = new Subject();
+        assertNotNull(person);
+
+    }
+    @Test
+    public void notnull() throws Exception {
+        sub = null;
+        assertEquals(null, sub);
     }
 
 

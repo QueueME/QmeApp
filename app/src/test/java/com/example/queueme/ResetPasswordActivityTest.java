@@ -1,13 +1,9 @@
 package com.example.queueme;
 
 
-
-
+import android.app.Activity;
 import android.content.Intent;
 import android.widget.EditText;
-import android.widget.TextView;
-
-import com.google.firebase.FirebaseApp;
 
 import org.junit.After;
 import org.junit.Before;
@@ -18,9 +14,12 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowActivity;
-import static junit.framework.Assert.assertTrue;
+import org.robolectric.shadows.ShadowHandler;
+import org.robolectric.shadows.ShadowToast;
 
-import static org.junit.Assert.*;
+import static junit.framework.Assert.assertTrue;
+import static org.assertj.core.api.Java6Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
 
 
 /**
@@ -30,11 +29,13 @@ import static org.junit.Assert.*;
 @Config(constants = BuildConfig.class)
 public class ResetPasswordActivityTest {
 
+    EditText email;
 
 
     @Before
     public void setUp() throws Exception {
-
+        Activity activity = Robolectric.setupActivity(LoginActivity.class);
+        email = (EditText) activity.findViewById(R.id.email);
 
     }
 
@@ -55,8 +56,8 @@ public class ResetPasswordActivityTest {
 
         Intent expectedIntent = new Intent(mMainActivity, LoginActivity.class);
 
-        EditText email = (EditText) mMainActivity.findViewById(R.id.email);
-        email.setText("joakimjohansenerkul@stud.ntnu.no");
+        //EditText email = (EditText) mMainActivity.findViewById(R.id.email);
+        //email.setText("joakimjohansenerkul@stud.ntnu.no");
 
         ShadowActivity shadowActivity = Shadows.shadowOf(mMainActivity);
         Intent actualIntent = shadowActivity.getNextStartedActivity();
@@ -65,14 +66,30 @@ public class ResetPasswordActivityTest {
     }
 
     @Test
+    public void onCreate1() throws Exception {
+        email.setText("hei");
+        assertThat(email.getText().toString()).isEqualTo("hei");
+
+    }
+    @Test
     public void checkingEmail() {
         ResetPasswordActivity mMainActivity = Robolectric.setupActivity(ResetPasswordActivity.class);
 
-        EditText email = (EditText) mMainActivity.findViewById(R.id.email);
         email.setText("joakimjohansenerkul@stud.ntnu.no");
 
         assertEquals(email.getText().toString(), "joakimjohansenerkul@stud.ntnu.no");
 
+
+    }
+    @Test
+    public void assertValidationFailureWithNullInput() {
+        ResetPasswordActivity mMainActivity = Robolectric.setupActivity(ResetPasswordActivity.class);
+
+        email.setText(null);
+        mMainActivity.findViewById(R.id.btn_reset_password).performClick();
+
+        ShadowHandler.idleMainLooper();
+        assertThat(ShadowToast.getTextOfLatestToast()).isEqualTo("Enter your registered email id");
 
     }
 
@@ -80,6 +97,13 @@ public class ResetPasswordActivityTest {
     @Test
     public void clickingBack_shouldStartLoginActivity(){
         ResetPasswordActivity mMainActivity = Robolectric.setupActivity(ResetPasswordActivity.class);
+        mMainActivity.findViewById(R.id.btn_back).performClick();
+        assertTrue(mMainActivity.isFinishing());
+    }
+    @Test
+    public void setText_and_click_back(){
+        ResetPasswordActivity mMainActivity = Robolectric.setupActivity(ResetPasswordActivity.class);
+        email.setText("hei");
         mMainActivity.findViewById(R.id.btn_back).performClick();
         assertTrue(mMainActivity.isFinishing());
     }
