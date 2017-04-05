@@ -23,6 +23,7 @@ public class ChoosePerson extends AppCompatActivity {
     private Button meny;
     private Button home;
 
+
     public String getEmnekode() {
         return emnekode;
     }
@@ -68,6 +69,7 @@ public class ChoosePerson extends AppCompatActivity {
         setContentView(R.layout.choose_person);
 
         meny = (Button) findViewById(R.id.meny);
+
         meny.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,6 +89,7 @@ public class ChoosePerson extends AppCompatActivity {
         final ListView l=(ListView) findViewById(R.id.listview);
         this.v = l;
         final ArrayList<Person> persons = new ArrayList<Person>();
+        //final
         //henter ut info fra forrige side
         Intent intent = getIntent();
         emnenavn = intent.getStringExtra("emnenavn");
