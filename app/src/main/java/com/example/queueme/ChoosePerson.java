@@ -8,7 +8,8 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.example.queueme.FeedAdapters.FeedAdapter_ChoosePerson;
+import com.google.firebase.FirebaseApp;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,6 +24,9 @@ public class ChoosePerson extends AppCompatActivity {
     private String emnenavn;
     private Button meny;
     private Button home;
+    private ArrayList<Person> persons = new ArrayList<Person>();
+    private ListView l;
+
 
 
     public String getEmnekode() {
@@ -69,6 +73,9 @@ public class ChoosePerson extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.choose_person);
 
+        FirebaseApp.initializeApp(this);
+
+
         meny = (Button) findViewById(R.id.meny);
 
         meny.setOnClickListener(new View.OnClickListener() {
@@ -87,10 +94,10 @@ public class ChoosePerson extends AppCompatActivity {
             }
         });
         //finner listview
-        final ListView l=(ListView) findViewById(R.id.listview);
-        this.v = l;
-        final ArrayList<Person> persons = new ArrayList<Person>();
-        //final
+
+        l=(ListView) findViewById(R.id.listview);
+
+
         //henter ut info fra forrige side
         Intent intent = getIntent();
         emnenavn = intent.getStringExtra("emnenavn");
@@ -98,65 +105,77 @@ public class ChoosePerson extends AppCompatActivity {
 
         //Henter ut perosnene fra databasen og legger dem i persons listen
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference myRef = database.getReference();
-        myRef.child("Subject").child(emnekode).child("StudAssList").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                persons.clear();
-                //get all of the children of this level.
-                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
-
-                //shake hands with each of them
-                for (DataSnapshot child: children){
-                    Person person = child.getValue(Person.class);
-                    persons.add(person);
-
-
-
-                }
-                //lager et adapter
-
-                FeedAdapter_ChoosePerson feedAdapter = new FeedAdapter_ChoosePerson(ChoosePerson.this, R.layout.list_subjectitem_person, persons);
-                l.setAdapter(feedAdapter);
-                //definerer hva som skal skje når man trykker på en person
-                l.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Person person = (Person) persons.get(position);
-                        Intent moveToDetailIntent = new Intent(ChoosePerson.this, DetailedActivity.class);
-
-
-                        String email = person.getEmail().toString();
-                        String uid = person.getUid().toString();
-
-
-
-                        moveToDetailIntent.putExtra("email",email);
-                        moveToDetailIntent.putExtra("uid",uid);
-                        moveToDetailIntent.putExtra("emnekode",emnekode);
-                        moveToDetailIntent.putExtra("emnenavn",emnenavn);
-
-                        startActivity(moveToDetailIntent);
-
-
-
-
-                    }
-                });
-
-
-
-            }
-
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        DatabaseReference myRef = database.getReference();
+        everything(myRef,emnekode);
 
 
 
     }
 
+public void everything(DatabaseReference myRef, final String emnekode){
+    myRef.child("Subject").child(emnekode).child("StudAssList").addValueEventListener(new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            persons.clear();
+            //get all of the children of this level.
+            Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+
+            //shake hands with each of them
+            for (DataSnapshot child: children){
+                Person person = child.getValue(Person.class);
+                persons.add(person);
+
+
+
+            }
+            //lager et adapter
+
+            FeedAdapter_ChoosePerson feedAdapter = new FeedAdapter_ChoosePerson(ChoosePerson.this, R.layout.list_subjectitem_person, persons);
+            l.setAdapter(feedAdapter);
+            //definerer hva som skal skje når man trykker på en person
+            l.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Person person = (Person) persons.get(position);
+                    Intent moveToDetailIntent = new Intent(ChoosePerson.this, DetailedActivity.class);
+
+
+                    String email = person.getEmail().toString();
+                    String uid = person.getUid().toString();
+
+
+
+                    moveToDetailIntent.putExtra("email",email);
+                    moveToDetailIntent.putExtra("uid",uid);
+                    moveToDetailIntent.putExtra("emnekode",emnekode);
+                    moveToDetailIntent.putExtra("emnenavn",emnenavn);
+
+                    startActivity(moveToDetailIntent);
+
+
+
+
+                }
+            });
+
+
+
+        }
+
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+
+        }
+    });
+}
+public ArrayList getPersons(){
+        return persons;
+    }
+    public void setEmnekode(String input){
+     this.emnekode=input;
+    }
+    public void setEmnenavn(String input){
+        this.emnenavn=input;
+    }
 }

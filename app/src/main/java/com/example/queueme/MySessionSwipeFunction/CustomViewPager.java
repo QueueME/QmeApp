@@ -66,4 +66,7 @@ public class CustomViewPager extends ViewPager {
     public void setAllowedSwipeDirection(SwipeDirection direction) {
         this.direction = direction;
     }
+    public SwipeDirection getDirection(){
+        return direction;
+    }
 }
