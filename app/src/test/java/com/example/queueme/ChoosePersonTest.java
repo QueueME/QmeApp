@@ -14,6 +14,7 @@ import org.robolectric.annotation.Config;
 
 import java.util.ArrayList;
 
+import static junit.framework.Assert.assertTrue;
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
 
@@ -50,16 +51,16 @@ public class ChoosePersonTest {
         assertThat(person).isEqualTo(person2);
 
 
-    }@Test
+    }
+    ChoosePerson p;
+    @Test
     public void onCreate() throws Exception {
         p = new ChoosePerson();
         p.setEmnekode("balle");
       assertTrue(p != null);
     }
 
-    public  void testEmnekode() throws Exception{
-        assertEquals("balle", p.getEmnekode());
-    }
+
     @Test
     public void check() throws Exception {
         Intent i = new Intent();

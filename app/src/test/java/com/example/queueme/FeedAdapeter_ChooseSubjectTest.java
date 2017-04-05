@@ -4,6 +4,8 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.queueme.FeedAdapters.FeedAdapeter_ChooseSubject;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

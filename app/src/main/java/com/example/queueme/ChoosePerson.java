@@ -8,8 +8,8 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.example.queueme.FeedAdapters.FeedAdapter_ChoosePerson;
 import com.google.firebase.FirebaseApp;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,44 +29,8 @@ public class ChoosePerson extends AppCompatActivity {
 
 
 
-    public String getEmnekode() {
-        return emnekode;
-    }
-
-    public void setEmnekode(String emnekode) {
-        this.emnekode = emnekode;
-    }
-
-    public String getEmnenavn() {
-        return emnenavn;
-    }
-
-    public void setEmnenavn(String emnenavn) {
-        this.emnenavn = emnenavn;
-    }
-
-    public Button getMeny() {
-        return meny;
-    }
-
-    public void setMeny(Button meny) {
-        this.meny = meny;
-    }
-
-    public Button getHome() {
-        return home;
-    }
-
-    public void setHome(Button home) {
-        this.home = home;
-    }
 
 
-    ListView v;
-
-    public ListView getListView(){
-        return v;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
