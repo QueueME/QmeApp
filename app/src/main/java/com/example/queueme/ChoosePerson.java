@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.google.firebase.FirebaseApp;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,6 +28,46 @@ public class ChoosePerson extends AppCompatActivity {
     private ListView l;
 
 
+
+    public String getEmnekode() {
+        return emnekode;
+    }
+
+    public void setEmnekode(String emnekode) {
+        this.emnekode = emnekode;
+    }
+
+    public String getEmnenavn() {
+        return emnenavn;
+    }
+
+    public void setEmnenavn(String emnenavn) {
+        this.emnenavn = emnenavn;
+    }
+
+    public Button getMeny() {
+        return meny;
+    }
+
+    public void setMeny(Button meny) {
+        this.meny = meny;
+    }
+
+    public Button getHome() {
+        return home;
+    }
+
+    public void setHome(Button home) {
+        this.home = home;
+    }
+
+
+    ListView v;
+
+    public ListView getListView(){
+        return v;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +77,7 @@ public class ChoosePerson extends AppCompatActivity {
 
 
         meny = (Button) findViewById(R.id.meny);
+
         meny.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,7 +94,9 @@ public class ChoosePerson extends AppCompatActivity {
             }
         });
         //finner listview
+
         l=(ListView) findViewById(R.id.listview);
+
 
         //henter ut info fra forrige side
         Intent intent = getIntent();

@@ -1,5 +1,6 @@
 package com.example.queueme;
 
+
 import android.app.Activity;
 import android.content.Intent;
 
@@ -49,6 +50,15 @@ public class ChoosePersonTest {
         assertThat(person).isEqualTo(person2);
 
 
+    }@Test
+    public void onCreate() throws Exception {
+        p = new ChoosePerson();
+        p.setEmnekode("balle");
+      assertTrue(p != null);
+    }
+
+    public  void testEmnekode() throws Exception{
+        assertEquals("balle", p.getEmnekode());
     }
     @Test
     public void check() throws Exception {
@@ -58,6 +68,7 @@ public class ChoosePersonTest {
         ArrayList person = Robolectric.buildActivity(ChoosePerson.class).withIntent(i).create().get().getPersons();
         ArrayList<Person>  person2=new ArrayList<>();
         assertThat(person).isEqualTo(person2);
+
 
 
     }

@@ -1,4 +1,4 @@
-package com.example.queueme;
+package com.example.queueme.FeedAdapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,6 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import com.example.queueme.Person;
+import com.example.queueme.R;
 
 import java.util.List;
 
@@ -20,6 +23,7 @@ public class FeedAdapter_ChoosePerson extends ArrayAdapter {
     private final int layoutResource;
     private final LayoutInflater layoutInflater;
     private List<Person> persons;
+
 
 
     public FeedAdapter_ChoosePerson(Context context, int resource, List<Person> persons){

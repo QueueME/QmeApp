@@ -1,4 +1,4 @@
-package com.example.queueme;
+package com.example.queueme.FeedAdapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.queueme.R;
+import com.example.queueme.Subject;
+
 import java.util.List;
 
 /**
@@ -15,12 +18,10 @@ import java.util.List;
  */
 
 public class FeedAdapter_ChooseSubject_Ass extends ArrayAdapter {
-    private static final String TAG= "FeedAdapter_ChooseSubject_Ass";
+    private static final String TAG = "FeedAdapter_ChooseSubject_Ass";
     private final int layoutResource;
     private final LayoutInflater layoutInflater;
     private List<Subject> subjects;
-
-
 
 
     public FeedAdapter_ChooseSubject_Ass(Context context, int resource, List<Subject> subjects) {
@@ -47,7 +48,7 @@ public class FeedAdapter_ChooseSubject_Ass extends ArrayAdapter {
 
         Subject currentApp = subjects.get(position);
 
-       // ImageView image = (ImageView) view.findViewById(R.id.arrow);
+        // ImageView image = (ImageView) view.findViewById(R.id.arrow);
         // image.setImageResource(arrow);
 
         tvEmnenavn.setText(currentApp.getEmnenavn());
@@ -56,5 +57,9 @@ public class FeedAdapter_ChooseSubject_Ass extends ArrayAdapter {
 
 
         return view;
+
     }
+
 }
+
+
