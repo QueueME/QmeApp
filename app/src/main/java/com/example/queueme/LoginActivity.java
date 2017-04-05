@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -23,18 +24,20 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private ProgressBar progressBar;
     private Button btnSignup, btnLogin, btnReset;
+    private String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         //Get Firebase auth instance
+FirebaseApp.initializeApp(this);
         auth = FirebaseAuth.getInstance();
-/*
+
          if (auth.getCurrentUser() != null) {
             startActivity(new Intent(LoginActivity.this, StudOrAss.class));
             finish();
-        }*/
+        }
 
         // set the view now
         setContentView(R.layout.login);
@@ -69,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = inputEmail.getText().toString();
+                 email = inputEmail.getText().toString();
                 final String password = inputPassword.getText().toString();
 
                 if (TextUtils.isEmpty(email)) {
@@ -109,5 +112,8 @@ public class LoginActivity extends AppCompatActivity {
                         });
             }
         });
+    }
+    private String gettEmail(){
+        return email;
     }
 }

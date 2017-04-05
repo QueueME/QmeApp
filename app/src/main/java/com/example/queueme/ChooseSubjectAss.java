@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -34,10 +35,14 @@ public class ChooseSubjectAss extends Activity {
     private Button meny;
     private Button home;
     private String uid;
+    private ArrayList<Subject> subjects;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.alternative_choose_subject_stud);
+
+        FirebaseApp.initializeApp(this);
+
 
         meny = (Button) findViewById(R.id.meny);
         meny.setOnClickListener(new View.OnClickListener() {
@@ -65,7 +70,7 @@ public class ChooseSubjectAss extends Activity {
 
 
         //lager listen alle fagene skal legger i
-        final ArrayList<Subject> subjects = new ArrayList<Subject>();
+       subjects = new ArrayList<Subject>();
 
         //inputSearch = (EditText) findViewById(R.id.inputSearch);
 
@@ -275,7 +280,9 @@ public class ChooseSubjectAss extends Activity {
 
         });
         }
-
+public ArrayList getSubjectss(){
+    return subjects;
+}
 
 }
 
