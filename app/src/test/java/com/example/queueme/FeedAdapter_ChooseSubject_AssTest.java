@@ -101,6 +101,9 @@ public class FeedAdapter_ChooseSubject_AssTest {
 
         TextView titleTextView = (TextView) listItemView.findViewById(R.id.tvname);
         assertEquals("sdfg", titleTextView.getText().toString());
+
+
+        //heihei
     }
     @Test
     public void hasTheCorrectConstructorResourceIDs() {
