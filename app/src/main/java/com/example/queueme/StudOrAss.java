@@ -10,7 +10,6 @@ public class StudOrAss extends AppCompatActivity implements View.OnClickListener
 
     private Button btnass;
     private Button btnstud;
-    private Button swipe;
     private Button meny;
     private Button home;
     private Intent intent;
@@ -46,9 +45,7 @@ public class StudOrAss extends AppCompatActivity implements View.OnClickListener
         if (v==btnstud){
             btnstud();
         }
-        if (v==swipe){
-            swipe();
-        }
+
 
         if(v==meny){
             meny();
@@ -63,9 +60,7 @@ public class StudOrAss extends AppCompatActivity implements View.OnClickListener
 
         startActivity(intent);
     }
-    public void swipe(){
-        startActivity(new Intent(StudOrAss.this, com.example.queueme.Infoscreens.WelcomeActivityStudent.class));
-    }
+
     public void btnstud(){
         startActivity(new Intent(StudOrAss.this, com.example.queueme.Infoscreens.WelcomeActivityStudent.class));
     }

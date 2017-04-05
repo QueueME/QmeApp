@@ -32,10 +32,6 @@
         <activity android:name=".StartSession" />
         <activity android:name=".ChooseSubjectStud" />
         <activity android:name=".InQueue" />
-        <activity
-            android:name=".PopSubject"
-            android:theme="@style/AppTheme.CostumeTheme1"
-            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".Searchtest" />
         <activity android:name=".SignupActivity" />
         <activity android:name=".Infoscreens.WelcomeActivityStudass" />
