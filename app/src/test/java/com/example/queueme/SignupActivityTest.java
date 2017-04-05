@@ -1,10 +1,6 @@
 package com.example.queueme;
 
-import android.content.Intent;
 import android.widget.EditText;
-import android.widget.TextView;
-
-import com.google.firebase.FirebaseApp;
 
 import org.junit.After;
 import org.junit.Before;
@@ -12,12 +8,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
-import org.robolectric.shadows.ShadowActivity;
-import static junit.framework.Assert.assertTrue;
+import org.robolectric.shadows.ShadowHandler;
+import org.robolectric.shadows.ShadowToast;
 
-import static org.junit.Assert.*;
+import static junit.framework.Assert.assertTrue;
+import static org.assertj.core.api.Java6Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
 
 
 /**
@@ -79,7 +76,34 @@ public class SignupActivityTest {
 
         assertTrue(actualIntent.filterEquals(expectedIntent));*/
     }
+    @Test
+    public void sdfassertValidationFailureWithNullInput() {
+        SignupActivity mMainActivity = Robolectric.setupActivity(SignupActivity.class);
+        EditText inputEmail = (EditText)mMainActivity.findViewById(R.id.email);
+        EditText inputpassword = (EditText)mMainActivity.findViewById(R.id.password);
 
+        inputEmail.setText("jokkefitte@stud.ntnu.no");
+        //inputpassword.setText("fds");
+        mMainActivity.findViewById(R.id.sign_up_button).performClick();
+
+        ShadowHandler.idleMainLooper();
+        assertThat(ShadowToast.getTextOfLatestToast()).isEqualTo("Enter password!");
+
+    }
+    @Test
+    public void ssdfassertValidationFailureWithNullInput() {
+        SignupActivity mMainActivity = Robolectric.setupActivity(SignupActivity.class);
+        EditText inputEmail = (EditText)mMainActivity.findViewById(R.id.email);
+        EditText inputpassword = (EditText)mMainActivity.findViewById(R.id.password);
+
+        inputEmail.setText("jokkefitte@stud.ntnu.no");
+        inputpassword.setText("fds");
+        mMainActivity.findViewById(R.id.sign_up_button).performClick();
+
+        ShadowHandler.idleMainLooper();
+        assertThat(ShadowToast.getTextOfLatestToast()).isEqualTo("Password too short, enter minimum 6 characters!");
+
+    }
 
 
 

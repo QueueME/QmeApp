@@ -8,8 +8,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.example.queueme.R.id.person;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Created by Eier on 02.04.2017.
@@ -60,7 +60,7 @@ public class SubjectTest {
     @Test
     public void alt() throws Exception {
         Subject sub = new Subject();
-        assertNotNull(person);
+        assertNotNull(sub);
 
     }
     @Test
@@ -68,6 +68,7 @@ public class SubjectTest {
         sub = null;
         assertEquals(null, sub);
     }
+
 
 
 }

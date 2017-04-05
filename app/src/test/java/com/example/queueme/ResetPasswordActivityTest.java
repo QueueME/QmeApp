@@ -107,6 +107,16 @@ public class ResetPasswordActivityTest {
         mMainActivity.findViewById(R.id.btn_back).performClick();
         assertTrue(mMainActivity.isFinishing());
     }
+    @Test
+    public void sdfassertValidationFailureWithNullInput() {
+        ResetPasswordActivity mMainActivity = Robolectric.setupActivity(ResetPasswordActivity.class);
 
+        email.setText("jokkefitte@stud.ntnu.no");
+        mMainActivity.findViewById(R.id.btn_reset_password).performClick();
+
+        ShadowHandler.idleMainLooper();
+        assertThat(ShadowToast.getTextOfLatestToast()).isEqualTo("id");
+
+    }
 
 }
