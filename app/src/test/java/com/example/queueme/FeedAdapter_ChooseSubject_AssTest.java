@@ -3,6 +3,8 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.queueme.FeedAdapters.FeedAdapter_ChooseSubject_Ass;
+
 import junit.framework.Assert;
 
 import org.junit.After;
