@@ -22,6 +22,7 @@ public class FeedAdapter_ChoosePerson extends ArrayAdapter {
     private List<Person> persons;
 
 
+
     public FeedAdapter_ChoosePerson(Context context, int resource, List<Person> persons){
         super(context, resource);
         this.layoutResource = resource;
