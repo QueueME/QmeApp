@@ -42,6 +42,13 @@ public class SignupActivityTest {
     }
 
     @Test
+    public void clickingSignin_shouldStartLoginActivity(){
+        SignupActivity mMainActivity = Robolectric.setupActivity(SignupActivity.class);
+        mMainActivity.findViewById(R.id.sign_in_button).performClick();
+        assertTrue(mMainActivity.isFinishing());
+    }
+
+    @Test
     public void clickingSignup_shouldStartStudOrAssActivity() {
 
         SignupActivity mMainActivity = Robolectric.setupActivity(SignupActivity.class);
@@ -72,18 +79,8 @@ public class SignupActivityTest {
 
         assertTrue(actualIntent.filterEquals(expectedIntent));*/
     }
-    @Test
-    public void clickingResetPassword_shouldSResetPasswordActivity() {
-        SignupActivity mMainActivity = Robolectric.setupActivity(SignupActivity.class);
-        mMainActivity.findViewById(R.id.btn_reset_password).performClick();
 
-        Intent expectedIntent = new Intent(mMainActivity, ResetPasswordActivity.class);
 
-        ShadowActivity shadowActivity = Shadows.shadowOf(mMainActivity);
-        Intent actualIntent = shadowActivity.getNextStartedActivity();
-
-        assertTrue(actualIntent.filterEquals(expectedIntent));
-    }
 
 
     @Test
