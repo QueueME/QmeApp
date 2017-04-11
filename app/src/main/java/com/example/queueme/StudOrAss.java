@@ -2,9 +2,12 @@ package com.example.queueme;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+
+import static com.example.queueme.R.id.give_me;
 
 public class StudOrAss extends AppCompatActivity implements View.OnClickListener{
 
@@ -13,6 +16,9 @@ public class StudOrAss extends AppCompatActivity implements View.OnClickListener
     private Button meny;
     private Button home;
     private Intent intent;
+
+    private PrefManager prefManager;
+
 
 
     @Override
@@ -65,6 +71,44 @@ public class StudOrAss extends AppCompatActivity implements View.OnClickListener
         startActivity(new Intent(StudOrAss.this, com.example.queueme.Infoscreens.WelcomeActivityStudent.class));
     }
     public void btnass(){
-        startActivity(new Intent(StudOrAss.this, com.example.queueme.Infoscreens.WelcomeActivityStudass.class));
+        prefManager = new PrefManager(this);
+
+        if (!prefManager.isFirstTimeLaunch()) {
+                launchHomeScreen();
+
+        }
+
+
+        else {
+            startActivity(new Intent(StudOrAss.this, ChooseSubjectAss.class));
+        }
     }
+
+    private void launchHomeScreen() {
+        prefManager.setFirstTimeLaunch(false);
+
+        final AlertDialog.Builder mbuilder = new AlertDialog.Builder(StudOrAss.this);
+        View mView = getLayoutInflater().inflate(R.layout.want_help, null);
+        mbuilder.setView(mView);
+        final AlertDialog dialog = mbuilder.create();
+        dialog.show();
+        Button give_help = (Button) mView.findViewById(give_me);
+        Button later = (Button) mView.findViewById(R.id.later);
+
+        give_help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(StudOrAss.this, com.example.queueme.Infoscreens.WelcomeActivityStudass.class));
+                finish();
+            }
+        });
+        later.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(StudOrAss.this, ChooseSubjectAss.class));
+                finish();
+            }
+        });
+    }
+
 }
