@@ -112,6 +112,8 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
 
         });
         next =(Button ) findViewById(R.id.next);
+        next.setVisibility(View.INVISIBLE);
+
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,8 +122,10 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
                     // move to next screen
                     mPager.setCurrentItem(current);
                 }
+
             }
         });
+
 
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -154,6 +158,8 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
                 nr.setText(String.valueOf(linecount()));
 
                 if (!students.isEmpty()){
+                    next.setVisibility(View.VISIBLE);
+
                     String uid= students.get(0).getUid();
                     Person person = dataSnapshot.getValue(Person.class);
                     TextView firstperson = (TextView) findViewById(R.id.person);
@@ -215,6 +221,9 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
                 }else {
                     TextView firstperson = (TextView) findViewById(R.id.person);
                     firstperson.setText("no one in line");
+                    next.setVisibility(View.INVISIBLE);
+
+
                 }
 
             }
@@ -300,7 +309,6 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
                 }
                 nr.setText(String.valueOf(linecount()));
             }else{
-
             }
 
             //kan override getcount()???

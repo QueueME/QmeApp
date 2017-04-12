@@ -14,7 +14,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.queueme.MySessionSwipeFunction.ScreenSlidePagerActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -39,7 +38,6 @@ public class InQueue extends AppCompatActivity {
     private ArrayList<Person> students = new ArrayList<Person>();
     private Button end;
     private boolean first=false;
-    private boolean quit=false;
 
 //notifikasjon
     NotificationCompat.Builder notification;
@@ -89,7 +87,6 @@ public class InQueue extends AppCompatActivity {
                 yes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        quit=true;
                         removeQueue(myRef2);
 
                     }
@@ -139,8 +136,8 @@ public class InQueue extends AppCompatActivity {
                         Uri alarmSound = RingtoneManager.getActualDefaultRingtoneUri(InQueue.this, RingtoneManager.TYPE_NOTIFICATION);
                         notification.setSound(alarmSound);
 
-                        Intent intent = new Intent(InQueue.this, ScreenSlidePagerActivity.class);
-                        PendingIntent pendingIntent = PendingIntent.getActivity(InQueue.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                        Intent intent = new Intent(InQueue.this, InQueue.class);
+                        PendingIntent pendingIntent = PendingIntent.getActivity(InQueue.this, 0, new Intent(), PendingIntent.FLAG_UPDATE_CURRENT);
                         notification.setContentIntent(pendingIntent);
 
                         // bygg notifikasjon og send det ut til enhet
@@ -197,10 +194,9 @@ public class InQueue extends AppCompatActivity {
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 Person person = dataSnapshot.getValue(Person.class);
 
-                if (person.getUid() == uid && !quit) {
+                if (person.getUid() == uid) {
                     startActivity(new Intent(InQueue.this, StudOrAss.class));
                     finish();
-
 
                 } else{
                     //   fetchDataDelete(dataSnapshot);

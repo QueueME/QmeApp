@@ -8,7 +8,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Beginning">
+        <activity android:name=".Beginning"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -17,27 +18,41 @@
         </activity>
         <activity android:name=".AddPerson" />
         <activity android:name=".AddSubject" />
-        <activity android:name=".ChoosePerson" />
-        <activity android:name=".MySessionSwipeFunction.ScreenSlidePagerActivity" />
+        <activity android:name=".ChoosePerson"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".MySessionSwipeFunction.ScreenSlidePagerActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".DetailedActivity"
-            android:label="@string/title_activity_detailed" />
+            android:label="@string/title_activity_detailed"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".StudOrAss"
-            android:label="@string/title_activity_stud_or_ass" />
+            android:label="@string/title_activity_stud_or_ass"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ChooseSubjectAss"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateHidden"
+            android:screenOrientation="portrait"/>
         <activity android:name=".FeedAdapterSubject" />
-        <activity android:name=".StartSession" />
-        <activity android:name=".ChooseSubjectStud" />
-        <activity android:name=".InQueue" />
-        <activity android:name=".SignupActivity" />
-        <activity android:name=".Infoscreens.WelcomeActivityStudass" />
-        <activity android:name=".Infoscreens.WelcomeActivityStudent" />
-        <activity android:name=".ResetPasswordActivity" />
-        <activity android:name=".MenyActivity" />
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".StartSession"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ChooseSubjectStud"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".InQueue"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".SignupActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Infoscreens.WelcomeActivityStudass"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Infoscreens.WelcomeActivityStudent"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ResetPasswordActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".MenyActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".LoginActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".Infoscreens.Want_help"></activity>
     </application>
 
