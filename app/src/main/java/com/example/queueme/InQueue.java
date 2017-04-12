@@ -38,6 +38,8 @@ public class InQueue extends AppCompatActivity {
     private TextView emneinfo;
     private ArrayList<Person> students = new ArrayList<Person>();
     private Button end;
+    private boolean first=false;
+    private boolean quit=false;
 
 //notifikasjon
     NotificationCompat.Builder notification;
@@ -87,6 +89,7 @@ public class InQueue extends AppCompatActivity {
                 yes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        quit=true;
                         removeQueue(myRef2);
 
                     }
@@ -124,7 +127,8 @@ public class InQueue extends AppCompatActivity {
                 Toast.makeText(InQueue.this, "Master",
                         Toast.LENGTH_SHORT).show();
                 if (!students.isEmpty()) {
-                    if ((students.get(0).getUid() == uid)) {
+                    if ((students.get(0).getUid() == uid)&& !first) {
+                        first=true;
                         //bygg notifikasjonen
                         notification.setSmallIcon(R.drawable.astudass);
                         notification.setTicker("Dette er ticker");
@@ -193,9 +197,11 @@ public class InQueue extends AppCompatActivity {
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 Person person = dataSnapshot.getValue(Person.class);
 
-                if (person.getUid() == uid) {
+                if (person.getUid() == uid && !quit) {
                     startActivity(new Intent(InQueue.this, StudOrAss.class));
                     finish();
+
+
                 } else{
                     //   fetchDataDelete(dataSnapshot);
                     //setter teksten i texview

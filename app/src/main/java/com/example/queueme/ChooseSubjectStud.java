@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.queueme.FeedAdapters.FeedAdapter_ChooseSubject_Ass;
@@ -35,6 +36,8 @@ public class ChooseSubjectStud extends Activity {
     private Button meny;
     private Button home;
     private String uid;
+    private TextView no_added_subject;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +63,9 @@ public class ChooseSubjectStud extends Activity {
         final ListView l=(ListView) findViewById(R.id.listview);
         //finner buttons
         popup = (Button) findViewById(R.id.popup);
+        no_added_subject = (TextView) findViewById(R.id.no_added_subject);
+        no_added_subject.setVisibility(View.VISIBLE);
+
 
 
         //lager listen alle fagene skal legger i
@@ -89,6 +95,14 @@ public class ChooseSubjectStud extends Activity {
                 for (DataSnapshot child: children){
                     Subject subject = child.getValue(Subject.class);
                     subjects.add(subject);
+                }
+                if(subjects.isEmpty()){
+                    no_added_subject.setVisibility(View.VISIBLE);
+
+                    no_added_subject.setText("You haven't added any subject yet. Press ADD SUBJECT below to do so");
+                }else{
+                    no_added_subject.setVisibility(View.INVISIBLE);
+
                 }
 
                 //lager arrayadapter som viser listene
@@ -199,6 +213,7 @@ public class ChooseSubjectStud extends Activity {
 
                                 myRefdialog2.child("Person").child(user.getUid()).child("FavoriteStudSubject").child(subject.getEmnekode()).setValue(subject);
                                 Toast.makeText(ChooseSubjectStud.this,"Subject added to favorites",Toast.LENGTH_SHORT).show();
+                                no_added_subject.setVisibility(View.INVISIBLE);
 
 
                             }

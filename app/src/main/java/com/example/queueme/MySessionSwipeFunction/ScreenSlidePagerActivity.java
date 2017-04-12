@@ -50,6 +50,7 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
     private TextView nr;
     private TextView person;
     Button end;
+    private Button next;
     private ArrayList<Person> students = new ArrayList<Person>();
     private String emnenavn;
     private String emnekode;
@@ -110,6 +111,18 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
             }
 
         });
+        next =(Button ) findViewById(R.id.next);
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int current = mPager.getCurrentItem()+1;
+                if (current < NUM_PAGES) {
+                    // move to next screen
+                    mPager.setCurrentItem(current);
+                }
+            }
+        });
+
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
