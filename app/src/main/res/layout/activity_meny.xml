@@ -191,7 +191,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="20dp"
-            android:background="@drawable/arrowback" />
+            android:background="@drawable/arrow_left2" />
 
         <TextView
             android:id="@+id/textView32"

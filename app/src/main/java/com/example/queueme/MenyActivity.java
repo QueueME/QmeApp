@@ -32,10 +32,7 @@ public class MenyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meny);
 
-        /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(getString(R.string.app_name));
-        setSupportActionBar(toolbar);
-        */
+
 
         //get firebase auth instance
         auth = FirebaseAuth.getInstance();
@@ -256,7 +253,7 @@ public class MenyActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 final AlertDialog.Builder mbuilder = new AlertDialog.Builder(MenyActivity.this);
-                View mView= getLayoutInflater().inflate(R.layout.delete_subject_popup,null);
+                View mView= getLayoutInflater().inflate(R.layout.remove_user,null);
                 mbuilder.setView(mView);
                 final AlertDialog dialog = mbuilder.create();
                 dialog.show();
@@ -303,7 +300,7 @@ public class MenyActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final AlertDialog.Builder mbuilder = new AlertDialog.Builder(MenyActivity.this);
-                View mView= getLayoutInflater().inflate(R.layout.delete_subject_popup,null);
+                View mView= getLayoutInflater().inflate(R.layout.sign_out,null);
                 mbuilder.setView(mView);
                 final AlertDialog dialog = mbuilder.create();
                 dialog.show();
