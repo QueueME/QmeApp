@@ -50,6 +50,12 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
 
         FirebaseApp.initializeApp(this);
 
+        //henter ting fra forrige side
+        Intent intent = getIntent();
+        email = intent.getStringExtra("email");
+        personuid=intent.getStringExtra("uid");
+        emnenavn =intent.getStringExtra("emnenavn");
+        emnekode = intent.getStringExtra("emnekode");
 
         meny = (Button) findViewById(R.id.meny);
         meny.setOnClickListener(new View.OnClickListener() {
@@ -63,29 +69,16 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(DetailedActivity.this, StudOrAss.class));
-
+                Intent intent = new Intent(DetailedActivity.this, ChoosePerson.class);
+                intent.putExtra("emnekode",emnekode);
+                intent.putExtra("emnenavn",emnenavn);
+                startActivity(intent);
             }
         });
         //TextView antall=(TextView) findViewById(R.id.antall);
 
         queue = (Button) findViewById(R.id.queue);
         queue.setOnClickListener(this);
-
-
-
-
-        //henter ting fra forrige side
-        Intent intent = getIntent();
-        email = intent.getStringExtra("email");
-        personuid=intent.getStringExtra("uid");
-        emnenavn =intent.getStringExtra("emnenavn");
-        emnekode = intent.getStringExtra("emnekode");
-
-
-
-
-
 
 
         name = (TextView) findViewById(R.id.name);

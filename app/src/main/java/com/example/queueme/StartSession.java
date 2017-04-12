@@ -55,7 +55,7 @@ public class StartSession extends AppCompatActivity implements View.OnClickListe
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(StartSession.this, StudOrAss.class));
+                startActivity(new Intent(StartSession.this, ChooseSubjectAss.class));
 
             }
         });
