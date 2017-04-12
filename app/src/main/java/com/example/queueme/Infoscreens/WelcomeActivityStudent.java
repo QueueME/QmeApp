@@ -30,6 +30,7 @@ public class WelcomeActivityStudent extends AppCompatActivity {
     private int[] layouts;
     private Button btnSkip, btnNext;
     private com.example.queueme.Infoscreens.PrefManager prefManager;
+    private boolean meny=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,12 @@ public class WelcomeActivityStudent extends AppCompatActivity {
         if (!prefManager.isFirstTimeLaunch()) {
             launchChooseSubjectStud();
             finish();
+        }
+
+        Intent intent = getIntent();
+        String intentmeny=intent.getStringExtra("meny");
+        if(intentmeny=="true"){
+            meny=true;
         }
 
         // Making notification bar transparent
@@ -76,8 +83,14 @@ public class WelcomeActivityStudent extends AppCompatActivity {
         btnSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(WelcomeActivityStudent.this, ChooseSubjectStud.class));
-                finish();
+                if (meny){
+                    startActivity(new Intent(WelcomeActivityStudent.this, ChooseSubjectStud.class));
+                    finish();
+                }
+                //if previus activity is meny it should go back to meny
+                if(!meny){
+                    finish();
+                }
             }
         });
 
@@ -91,8 +104,14 @@ public class WelcomeActivityStudent extends AppCompatActivity {
                     // move to next screen
                     viewPager.setCurrentItem(current);
                 } else {
-                    startActivity(new Intent(WelcomeActivityStudent.this, ChooseSubjectStud.class));
-                    finish();
+                    if (meny){
+                        startActivity(new Intent(WelcomeActivityStudent.this, ChooseSubjectStud.class));
+                        finish();
+                    }
+                    //if previus activity is meny it should go back to meny
+                    if(!meny){
+                        finish();
+                    }
                 }
             }
         });

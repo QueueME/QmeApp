@@ -31,17 +31,29 @@ public class WelcomeActivityStudass extends AppCompatActivity {
     private Button btnSkip, btnNext;
     private com.example.queueme.Infoscreens.PrefManager prefManager;
 
+
+
+    private boolean meny=false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // Checking for first time launch - before calling setContentView()
-    /*    prefManager = new PrefManager(this);
+          prefManager = new PrefManager(this);
         if (!prefManager.isFirstTimeLaunch()) {
             launchChooseSubjectAss();
             finish();
         }
-*/
+
+
+        //if previus intent is meny, meny should be true. if it is it should change boolean menyu
+        Intent intent = getIntent();
+        String intentmeny=intent.getStringExtra("meny");
+        if(intentmeny=="true"){
+            meny=true;
+        }
+
         // Making notification bar transparent
         if (Build.VERSION.SDK_INT >= 21) {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
@@ -77,8 +89,14 @@ public class WelcomeActivityStudass extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //launchChooseSubjectAss();
-                startActivity(new Intent(WelcomeActivityStudass.this, ChooseSubjectAss.class));
-                finish();
+                if (meny){
+                    startActivity(new Intent(WelcomeActivityStudass.this, ChooseSubjectAss.class));
+                    finish();
+                }
+                //if previus activity is meny it should go back to meny
+                if(!meny){
+                    finish();
+                }
             }
         });
 
@@ -92,8 +110,15 @@ public class WelcomeActivityStudass extends AppCompatActivity {
                     // move to next screen
                     viewPager.setCurrentItem(current);
                 } else {
-                    startActivity(new Intent(WelcomeActivityStudass.this, ChooseSubjectAss.class));
-                    finish();
+                    if (meny){
+                        startActivity(new Intent(WelcomeActivityStudass.this, ChooseSubjectAss.class));
+                        finish();
+                    }
+                    //if previus activity is meny it should go back to meny
+                    if(!meny){
+                        finish();
+                    }
+
                 }
             }
         });
@@ -207,5 +232,8 @@ public class WelcomeActivityStudass extends AppCompatActivity {
             View view = (View) object;
             container.removeView(view);
         }
+    }
+    public void setMeny(boolean meny) {
+        this.meny = meny;
     }
 }

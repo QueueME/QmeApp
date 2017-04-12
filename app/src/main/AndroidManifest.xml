@@ -53,7 +53,6 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".LoginActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".Infoscreens.Want_help"></activity>
     </application>
 
 </manifest>
