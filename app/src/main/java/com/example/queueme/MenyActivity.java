@@ -11,7 +11,6 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.queueme.Infoscreens.WelcomeActivityStudass;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -102,8 +101,10 @@ public class MenyActivity extends AppCompatActivity {
         btn_turtorial_ass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MenyActivity.this, WelcomeActivityStudass.class);
-                intent.putExtra("meny", "true");
+                Intent intent = new Intent(MenyActivity.this, com.example.queueme.Infoscreens.WelcomeActivityStudass.class);
+                String finish = "true";
+                intent.putExtra("meny", finish);
+
                 startActivity(intent);
 
             }
@@ -111,7 +112,7 @@ public class MenyActivity extends AppCompatActivity {
         btn_turtorial_stud.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MenyActivity.this, WelcomeActivityStudass.class);
+                Intent intent = new Intent(MenyActivity.this, com.example.queueme.Infoscreens.WelcomeActivityStudent.class);
                 intent.putExtra("meny", "true");
                 startActivity(intent);
             }

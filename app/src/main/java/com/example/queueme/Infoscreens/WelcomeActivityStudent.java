@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.queueme.ChooseSubjectAss;
 import com.example.queueme.ChooseSubjectStud;
 import com.example.queueme.R;
 
@@ -31,23 +32,22 @@ public class WelcomeActivityStudent extends AppCompatActivity {
     private Button btnSkip, btnNext;
     private com.example.queueme.Infoscreens.PrefManager prefManager;
     private boolean meny=false;
+    private String intentmeny;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // Checking for first time launch - before calling setContentView()
-        prefManager = new PrefManager(this);
+        /*prefManager = new PrefManager(this);
         if (!prefManager.isFirstTimeLaunch()) {
             launchChooseSubjectStud();
             finish();
         }
-
+*/
         Intent intent = getIntent();
-        String intentmeny=intent.getStringExtra("meny");
-        if(intentmeny=="true"){
-            meny=true;
-        }
+        intentmeny=intent.getStringExtra("meny");
+
 
         // Making notification bar transparent
         if (Build.VERSION.SDK_INT >= 21) {
@@ -83,12 +83,12 @@ public class WelcomeActivityStudent extends AppCompatActivity {
         btnSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (meny){
-                    startActivity(new Intent(WelcomeActivityStudent.this, ChooseSubjectStud.class));
+                if (intentmeny==null){
+                    startActivity(new Intent(WelcomeActivityStudent.this, ChooseSubjectAss.class));
                     finish();
                 }
                 //if previus activity is meny it should go back to meny
-                if(!meny){
+                if(intentmeny!=null){
                     finish();
                 }
             }
@@ -104,12 +104,12 @@ public class WelcomeActivityStudent extends AppCompatActivity {
                     // move to next screen
                     viewPager.setCurrentItem(current);
                 } else {
-                    if (meny){
-                        startActivity(new Intent(WelcomeActivityStudent.this, ChooseSubjectStud.class));
+                    if (intentmeny==null){
+                        startActivity(new Intent(WelcomeActivityStudent.this, ChooseSubjectAss.class));
                         finish();
                     }
                     //if previus activity is meny it should go back to meny
-                    if(!meny){
+                    if(intentmeny!=null){
                         finish();
                     }
                 }
