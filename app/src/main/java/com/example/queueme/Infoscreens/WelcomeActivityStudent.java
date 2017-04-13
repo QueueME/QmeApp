@@ -38,16 +38,20 @@ public class WelcomeActivityStudent extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+
+        Intent intent = getIntent();
+        intentmeny=intent.getStringExtra("meny");
+
+        //hvis forrige side er meny skal den siden vises uansett. hvis den ikke kommer fra meny skal den kun vises første gang:
+        if (intentmeny==null){
         // Checking for first time launch - before calling setContentView()
-        /*prefManager = new PrefManager(this);
+        prefManager = new PrefManager(this);
         if (!prefManager.isFirstTimeLaunch()) {
             launchChooseSubjectStud();
             finish();
         }
-*/
-        Intent intent = getIntent();
-        intentmeny=intent.getStringExtra("meny");
-
+        }
 
         // Making notification bar transparent
         if (Build.VERSION.SDK_INT >= 21) {

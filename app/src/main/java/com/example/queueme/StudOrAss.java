@@ -2,12 +2,11 @@ package com.example.queueme;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import static com.example.queueme.R.id.give_me;
+import com.example.queueme.Infoscreens.WelcomeActivityStudass;
 
 public class StudOrAss extends AppCompatActivity implements View.OnClickListener{
 
@@ -71,20 +70,19 @@ public class StudOrAss extends AppCompatActivity implements View.OnClickListener
         startActivity(new Intent(StudOrAss.this, com.example.queueme.Infoscreens.WelcomeActivityStudent.class));
     }
     public void btnass(){
-        prefManager = new PrefManager(this);
+        //prefManager = new PrefManager(this);
 
-        if (!prefManager.isFirstTimeLaunch()) {
+        /*if (!prefManager.isFirstTimeLaunch()) {
                 launchHomeScreen();
 
         }
+*/
 
 
-        else {
-            startActivity(new Intent(StudOrAss.this, ChooseSubjectAss.class));
-        }
+            startActivity(new Intent(StudOrAss.this, WelcomeActivityStudass.class));
     }
 
-    private void launchHomeScreen() {
+  /*  private void launchHomeScreen() {
         prefManager.setFirstTimeLaunch(false);
 
         final AlertDialog.Builder mbuilder = new AlertDialog.Builder(StudOrAss.this);
@@ -110,5 +108,6 @@ public class StudOrAss extends AppCompatActivity implements View.OnClickListener
             }
         });
     }
+    */
 
 }

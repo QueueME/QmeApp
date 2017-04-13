@@ -40,18 +40,21 @@ public class WelcomeActivityStudass extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Checking for first time launch - before calling setContentView()
-        /*  prefManager = new PrefManager(this);
-        if (!prefManager.isFirstTimeLaunch()) {
-            launchChooseSubjectAss();
-            finish();
-        }
-*/
+
 
         //if previus intent is meny, meny should be true. if it is it should change boolean menyu
         Intent intent = getIntent();
         intentmeny=intent.getStringExtra("meny");
 
+        //hvis forrige side er meny skal den siden vises uansett. hvis den ikke kommer fra meny skal den kun vises første gang:
+        if (intentmeny==null){
+            // Checking for first time launch - before calling setContentView()
+            prefManager = new PrefManager(this);
+            if (!prefManager.isFirstTimeLaunch()) {
+                launchChooseSubjectAss();
+                finish();
+            }
+        }
 
         // Making notification bar transparent
         if (Build.VERSION.SDK_INT >= 21) {
