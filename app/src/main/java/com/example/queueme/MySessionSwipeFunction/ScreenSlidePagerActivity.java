@@ -12,6 +12,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,6 +57,7 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
     private String emnekode;
     private String uid;
     private DatabaseReference ref;
+    private ImageView image;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +72,9 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
         mPager.addOnPageChangeListener(viewPagerPageChangeListener);
+
+        //image = (ImageView) mPager.findViewById(R.id.imageView);
+
 
         person=(TextView) findViewById(R.id.person);
         nr=(TextView) findViewById(R.id.nr);

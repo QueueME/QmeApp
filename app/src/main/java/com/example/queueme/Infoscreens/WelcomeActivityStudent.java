@@ -2,6 +2,7 @@ package com.example.queueme.Infoscreens;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -44,14 +45,19 @@ public class WelcomeActivityStudent extends AppCompatActivity {
         intentmeny=intent.getStringExtra("meny");
 
         //hvis forrige side er meny skal den siden vises uansett. hvis den ikke kommer fra meny skal den kun vises første gang:
-        if (intentmeny==null){
-        // Checking for first time launch - before calling setContentView()
-        prefManager = new PrefManager(this);
-        if (!prefManager.isFirstTimeLaunch()) {
-            launchChooseSubjectStud();
-            finish();
-        }
-        }
+     if (intentmeny==null) {
+         //shared preference to see if it has been open before
+         SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+         boolean FirstTime = sharedPref.getBoolean("FirstTimeInfoStud", false);
+         if (FirstTime) {
+             startActivity(new Intent(WelcomeActivityStudent.this, ChooseSubjectStud.class));
+             finish();
+         } else {
+             SharedPreferences.Editor editor = sharedPref.edit();
+             editor.putBoolean("FirstTimeInfoStud", true);
+             editor.apply();
+         }
+     }
 
         // Making notification bar transparent
         if (Build.VERSION.SDK_INT >= 21) {
