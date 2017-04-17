@@ -79,7 +79,7 @@
         android:layout_marginLeft="0dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="7dp"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView23"
@@ -135,12 +135,12 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="0dp"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/textView24"
+        app:layout_constraintHorizontal_bias="0.513"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/man"
-        app:srcCompat="@drawable/happygirl"
-        app:layout_constraintHorizontal_bias="0.513" />
+        app:srcCompat="@drawable/happygirl" />
 
 </android.support.constraint.ConstraintLayout>

@@ -348,17 +348,20 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
         @Override
         public Fragment getItem(int position) {
 
-            if(!students.isEmpty()) {
-                if (students.get(0).isMale()) {
+          /*  if(!students.isEmpty()) {
+                if (!students.get(0).isMale()) {
                     return new ScreenSlidePageFragment();
 
                 }
-                if (!students.get(0).isMale()) {
+                if (students.get(0).isMale()) {
                     return new ScreenSlidePageFragmentWomen();
 
                 }
-            }
+            }*/
 
+          if (position==1){
+                return  new ScreenSlidePageFragmentWomen();
+          }
             return new ScreenSlidePageFragment();
 
         }
