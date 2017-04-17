@@ -1,13 +1,16 @@
 package com.example.queueme;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -27,6 +30,9 @@ public class SignupActivity extends AppCompatActivity {
     private Button btnSignIn, btnSignUp, btnResetPassword;
     private ProgressBar progressBar;
     private FirebaseAuth auth;
+    private CheckBox male;
+    private CheckBox female;
+    private SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +42,10 @@ public class SignupActivity extends AppCompatActivity {
         FirebaseApp.initializeApp(this);
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
+
+        male = (CheckBox) findViewById(R.id.male);
+        female = (CheckBox) findViewById(R.id.female);
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         btnSignIn = (Button) findViewById(R.id.sign_in_button);
         btnSignUp = (Button) findViewById(R.id.sign_up_button);
@@ -84,7 +94,14 @@ public class SignupActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Make sure your email contains 'stud.ntnu.no', try again!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                progressBar.setVisibility(View.VISIBLE);
+                if ((male.isChecked()&&female.isChecked())|| (!male.isChecked()&&!female.isChecked())) {
+                    Toast.makeText(getApplicationContext(), "You have to choose ONE gender!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+
+                    progressBar.setVisibility(View.VISIBLE);
+
                 //create user
                 auth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
@@ -107,6 +124,8 @@ public class SignupActivity extends AppCompatActivity {
                         });
 
             }
+
+
         });
     }
     //lager en person i databasen med fulltnavn slik at vi kan bruke fullt navn senere
@@ -133,6 +152,14 @@ public class SignupActivity extends AppCompatActivity {
         person.setUid(useruid);
         person.setTime_to_stop("0");
 
+        if (male.isChecked()){
+            prefs.edit().putBoolean("gender", true).apply();
+            person.setMale(true);
+        }
+        if (female.isChecked()){
+            prefs.edit().putBoolean("gender", false).apply();
+            person.setMale(false);
+        }
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef= database.getReference("Person");
         myRef.child(useruid).setValue(person);

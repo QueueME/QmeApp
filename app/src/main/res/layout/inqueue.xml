@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:text="You are nr "
         android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/imageView19"
+        app:layout_constraintTop_toBottomOf="@+id/man"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/nrInLine"
@@ -50,7 +50,7 @@
         android:layout_height="62dp"
         app:srcCompat="@drawable/slash"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/imageView19"
+        app:layout_constraintTop_toBottomOf="@+id/man"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/step_out"
         android:layout_marginLeft="8dp"
@@ -73,16 +73,17 @@
         android:layout_marginBottom="0dp" />
 
     <ImageView
-        android:id="@+id/imageView19"
+        android:id="@+id/man"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        app:srcCompat="@drawable/coffee2"
         android:layout_marginLeft="0dp"
-        app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="7dp"
-        app:layout_constraintTop_toBottomOf="@+id/textView23" />
+        android:visibility="invisible"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView23"
+        app:srcCompat="@drawable/coffee2" />
 
     <Button
         android:id="@+id/step_out"
@@ -125,5 +126,21 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emneinfo" />
+
+    <ImageView
+        android:id="@+id/girl"
+        android:layout_width="269dp"
+        android:layout_height="258dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="0dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/textView24"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/man"
+        app:srcCompat="@drawable/happygirl"
+        app:layout_constraintHorizontal_bias="0.513" />
 
 </android.support.constraint.ConstraintLayout>
