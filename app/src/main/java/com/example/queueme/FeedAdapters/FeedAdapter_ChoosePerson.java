@@ -40,27 +40,22 @@ public class FeedAdapter_ChoosePerson extends ArrayAdapter {
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
-
+        //inflates
         View view = layoutInflater.inflate(layoutResource, parent, false);
+        //fins views
         ImageView im = (ImageView)view.findViewById(R.id.studass_icon_personitem);
-
-
         TextView name = (TextView) view.findViewById(R.id.tvname);
-       // TextView email = (TextView) view.findViewById(R.id.tvemail);
         TextView time = (TextView) view.findViewById(R.id.time_until);
 
 
         Person currentApp = persons.get(position);
-
+        //if gender is not male--> set new image choosegirlstud
         if(currentApp.isMale()==false){
             im.setImageResource(R.drawable.choosegirlstud);
 
         }
         name.setText(currentApp.getName());
-        //email.setText(currentApp.getEmail());
         time.setText(currentApp.getTime_to_stop());
-
-//
         return view;
     }
 

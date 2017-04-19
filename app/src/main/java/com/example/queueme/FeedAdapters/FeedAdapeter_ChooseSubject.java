@@ -38,19 +38,16 @@ public class FeedAdapeter_ChooseSubject extends ArrayAdapter {
     @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
+        //inflates
         View view = layoutInflater.inflate(layoutResource, parent, false);
+        //fins views
         TextView tvEmnekode = (TextView) view.findViewById(R.id.tvEmnekode);
         TextView tvEmnenavn = (TextView) view.findViewById(R.id.tvEmnenavn);
-       // TextView tvAntstud = (TextView) view.findViewById(R.id.tvAntallstud);
-
+        //sets text
         Subject currentApp = subjects.get(position);
         tvEmnenavn.setText(currentApp.getEmnenavn());
         tvEmnekode.setText(currentApp.getEmnekode());
-        //tvAntstud.setText();
-
 
         return view;
     }
 }
-//heihei
