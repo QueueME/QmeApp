@@ -12,6 +12,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,11 +51,13 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
     private TextView nr;
     private TextView person;
     Button end;
+    private Button next;
     private ArrayList<Person> students = new ArrayList<Person>();
     private String emnenavn;
     private String emnekode;
     private String uid;
     private DatabaseReference ref;
+    private ImageView image;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +72,9 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
         mPager.addOnPageChangeListener(viewPagerPageChangeListener);
+
+        //image = (ImageView) mPager.findViewById(R.id.imageView);
+
 
         person=(TextView) findViewById(R.id.person);
         nr=(TextView) findViewById(R.id.nr);
@@ -110,6 +116,22 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
             }
 
         });
+        next =(Button ) findViewById(R.id.next);
+        next.setVisibility(View.INVISIBLE);
+
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int current = mPager.getCurrentItem()+1;
+                if (current < NUM_PAGES) {
+                    // move to next screen
+                    mPager.setCurrentItem(current);
+                }
+
+            }
+        });
+
+
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
@@ -141,6 +163,8 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
                 nr.setText(String.valueOf(linecount()));
 
                 if (!students.isEmpty()){
+                    next.setVisibility(View.VISIBLE);
+
                     String uid= students.get(0).getUid();
                     Person person = dataSnapshot.getValue(Person.class);
                     TextView firstperson = (TextView) findViewById(R.id.person);
@@ -202,6 +226,9 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
                 }else {
                     TextView firstperson = (TextView) findViewById(R.id.person);
                     firstperson.setText("no one in line");
+                    next.setVisibility(View.INVISIBLE);
+
+
                 }
 
             }
@@ -287,7 +314,6 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
                 }
                 nr.setText(String.valueOf(linecount()));
             }else{
-
             }
 
             //kan override getcount()???

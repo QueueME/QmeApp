@@ -2,6 +2,7 @@ package com.example.queueme.Infoscreens;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.queueme.ChooseSubjectAss;
 import com.example.queueme.ChooseSubjectStud;
 import com.example.queueme.R;
 
@@ -30,17 +32,32 @@ public class WelcomeActivityStudent extends AppCompatActivity {
     private int[] layouts;
     private Button btnSkip, btnNext;
     private com.example.queueme.Infoscreens.PrefManager prefManager;
+    private boolean meny=false;
+    private String intentmeny;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Checking for first time launch - before calling setContentView()
-        prefManager = new PrefManager(this);
-        if (!prefManager.isFirstTimeLaunch()) {
-            launchChooseSubjectStud();
-            finish();
-        }
+
+
+        Intent intent = getIntent();
+        intentmeny=intent.getStringExtra("meny");
+
+        //hvis forrige side er meny skal den siden vises uansett. hvis den ikke kommer fra meny skal den kun vises første gang:
+     if (intentmeny==null) {
+         //shared preference to see if it has been open before
+         SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+         boolean FirstTime = sharedPref.getBoolean("FirstTimeInfoStud", false);
+         if (FirstTime) {
+             startActivity(new Intent(WelcomeActivityStudent.this, ChooseSubjectStud.class));
+             finish();
+         } else {
+             SharedPreferences.Editor editor = sharedPref.edit();
+             editor.putBoolean("FirstTimeInfoStud", true);
+             editor.apply();
+         }
+     }
 
         // Making notification bar transparent
         if (Build.VERSION.SDK_INT >= 21) {
@@ -76,8 +93,14 @@ public class WelcomeActivityStudent extends AppCompatActivity {
         btnSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(WelcomeActivityStudent.this, ChooseSubjectStud.class));
-                finish();
+                if (intentmeny==null){
+                    startActivity(new Intent(WelcomeActivityStudent.this, ChooseSubjectAss.class));
+                    finish();
+                }
+                //if previus activity is meny it should go back to meny
+                if(intentmeny!=null){
+                    finish();
+                }
             }
         });
 
@@ -91,8 +114,14 @@ public class WelcomeActivityStudent extends AppCompatActivity {
                     // move to next screen
                     viewPager.setCurrentItem(current);
                 } else {
-                    startActivity(new Intent(WelcomeActivityStudent.this, ChooseSubjectStud.class));
-                    finish();
+                    if (intentmeny==null){
+                        startActivity(new Intent(WelcomeActivityStudent.this, ChooseSubjectAss.class));
+                        finish();
+                    }
+                    //if previus activity is meny it should go back to meny
+                    if(intentmeny!=null){
+                        finish();
+                    }
                 }
             }
         });

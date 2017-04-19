@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.queueme.FeedAdapters.FeedAdapter_ChoosePerson;
 import com.google.firebase.FirebaseApp;
@@ -26,7 +27,7 @@ public class ChoosePerson extends AppCompatActivity {
     private Button home;
     private ArrayList<Person> persons = new ArrayList<Person>();
     private ListView l;
-
+    private TextView no_studass_availible;
 
 
 
@@ -53,10 +54,12 @@ public class ChoosePerson extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ChoosePerson.this, StudOrAss.class));
+                startActivity(new Intent(ChoosePerson.this, ChooseSubjectStud.class));
 
             }
         });
+
+        no_studass_availible = (TextView) findViewById(R.id.no_one_availible);
         //finner listview
 
         l=(ListView) findViewById(R.id.listview);
@@ -92,6 +95,12 @@ public void everything(DatabaseReference myRef, final String emnekode){
 
 
             }
+            if(persons.isEmpty()){
+               no_studass_availible.setVisibility(View.VISIBLE);
+            }else {
+                no_studass_availible.setVisibility(View.GONE);
+            }
+
             //lager et adapter
 
             FeedAdapter_ChoosePerson feedAdapter = new FeedAdapter_ChoosePerson(ChoosePerson.this, R.layout.list_subjectitem_person, persons);

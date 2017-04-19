@@ -12,7 +12,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.queueme.FeedAdapters.FeedAdapter_ChooseSubject_Ass;
@@ -37,6 +39,8 @@ public class ChooseSubjectAss extends Activity {
     private Button home;
     private String uid;
     private ArrayList<Subject> subjects;
+    private TextView no_added_subject;
+    private ImageView arrow_down;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +70,12 @@ public class ChooseSubjectAss extends Activity {
 
         //finer listview og setter som variabel
         final ListView l=(ListView) findViewById(R.id.listview);
+        no_added_subject = (TextView) findViewById(R.id.no_added_subject);
+
+        arrow_down = (ImageView) findViewById(R.id. arrow_down);
+
+
+
         //finner buttons
         popup = (Button) findViewById(R.id.popup);
 
@@ -75,6 +85,7 @@ public class ChooseSubjectAss extends Activity {
 
         //inputSearch = (EditText) findViewById(R.id.inputSearch);
 
+        no_added_subject.setVisibility(View.VISIBLE);
 
         //henter ut alle subjects som ligger i databasen og legger i liste
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -90,6 +101,8 @@ public class ChooseSubjectAss extends Activity {
         myRef.child("Person").child(user.getUid()).child("FavoriteAssSubject").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                no_added_subject.setVisibility(View.INVISIBLE);
+
                 subjects.clear();
                 //get all of the children of this level.
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
@@ -101,6 +114,13 @@ public class ChooseSubjectAss extends Activity {
 
 
 
+                }
+
+                if(subjects.isEmpty()){
+                    no_added_subject.setVisibility(View.VISIBLE);
+
+                    no_added_subject.setText("You haven't added any subject yet. Press ADD SUBJECT below to do so");
+                    arrow_down.setVisibility(View.VISIBLE);
                 }
 
                 FeedAdapter_ChooseSubject_Ass Adapter = new FeedAdapter_ChooseSubject_Ass(ChooseSubjectAss.this, R.layout.list_subjectitem_ass, subjects);
@@ -209,6 +229,8 @@ public class ChooseSubjectAss extends Activity {
 
                                 myRefdialog2.child("Person").child(user.getUid()).child("FavoriteAssSubject").child(emnekode).setValue(subject);
                                 Toast.makeText(ChooseSubjectAss.this,"Subject added to favorites",Toast.LENGTH_SHORT).show();
+                                no_added_subject.setVisibility(View.INVISIBLE);
+                                arrow_down.setVisibility(View.INVISIBLE);
 
 
 

@@ -14,7 +14,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.queueme.MySessionSwipeFunction.ScreenSlidePagerActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -38,6 +37,7 @@ public class InQueue extends AppCompatActivity {
     private TextView emneinfo;
     private ArrayList<Person> students = new ArrayList<Person>();
     private Button end;
+    private boolean first=false;
 
 //notifikasjon
     NotificationCompat.Builder notification;
@@ -124,7 +124,8 @@ public class InQueue extends AppCompatActivity {
                 Toast.makeText(InQueue.this, "Master",
                         Toast.LENGTH_SHORT).show();
                 if (!students.isEmpty()) {
-                    if ((students.get(0).getUid() == uid)) {
+                    if ((students.get(0).getUid() == uid)&& !first) {
+                        first=true;
                         //bygg notifikasjonen
                         notification.setSmallIcon(R.drawable.astudass);
                         notification.setTicker("Dette er ticker");
@@ -135,8 +136,8 @@ public class InQueue extends AppCompatActivity {
                         Uri alarmSound = RingtoneManager.getActualDefaultRingtoneUri(InQueue.this, RingtoneManager.TYPE_NOTIFICATION);
                         notification.setSound(alarmSound);
 
-                        Intent intent = new Intent(InQueue.this, ScreenSlidePagerActivity.class);
-                        PendingIntent pendingIntent = PendingIntent.getActivity(InQueue.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                        Intent intent = new Intent(InQueue.this, InQueue.class);
+                        PendingIntent pendingIntent = PendingIntent.getActivity(InQueue.this, 0, new Intent(), PendingIntent.FLAG_UPDATE_CURRENT);
                         notification.setContentIntent(pendingIntent);
 
                         // bygg notifikasjon og send det ut til enhet
@@ -196,6 +197,7 @@ public class InQueue extends AppCompatActivity {
                 if (person.getUid() == uid) {
                     startActivity(new Intent(InQueue.this, StudOrAss.class));
                     finish();
+
                 } else{
                     //   fetchDataDelete(dataSnapshot);
                     //setter teksten i texview
