@@ -30,11 +30,6 @@ public class WelcomeActivityStudass extends AppCompatActivity {
     private TextView[] dots;
     private int[] layouts;
     private Button btnSkip, btnNext;
-    private com.example.queueme.Infoscreens.PrefManager prefManager;
-
-
-
-    private boolean meny=false;
     private String intentmeny;
 
     @Override
@@ -47,7 +42,8 @@ public class WelcomeActivityStudass extends AppCompatActivity {
         Intent intent = getIntent();
         intentmeny=intent.getStringExtra("meny");
 
-       //hvis forrige side er meny skal den siden vises uansett. hvis den ikke kommer fra meny skal den kun vises første gang:
+        //if last page is meny it should show no matter what.
+        // if last page is home. it depends on the variable intentmeny. it should onl open the first time
         if (intentmeny==null) {
 
             //shared preference to see if it has been open before
@@ -73,10 +69,6 @@ public class WelcomeActivityStudass extends AppCompatActivity {
         dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
         btnSkip = (Button) findViewById(R.id.btn_skip);
         btnNext = (Button) findViewById(R.id.btn_next);
-
-
-
-
 
         // layouts of all welcome sliders
         // add few more layouts if you want
@@ -159,11 +151,7 @@ public class WelcomeActivityStudass extends AppCompatActivity {
         return viewPager.getCurrentItem() + i;
     }
 
-    private void launchChooseSubjectAss() {
-        prefManager.setFirstTimeLaunch(false);
-        startActivity(new Intent(WelcomeActivityStudass.this, ChooseSubjectAss.class));
-        finish();
-    }
+
 
     //  viewpager change listener
     ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
@@ -245,7 +233,5 @@ public class WelcomeActivityStudass extends AppCompatActivity {
             container.removeView(view);
         }
     }
-    public void setMeny(boolean meny) {
-        this.meny = meny;
-    }
+
 }

@@ -34,14 +34,7 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
     private TextView subnavn;
     private ArrayList<Person> persons = new ArrayList<Person>();
     private ArrayList<Person> studasses = new ArrayList<Person>();
-    private Person studAss;
-    private String studName;
-    private Person Me;
     private String myName;
-
-
-    //private int queuenr;
-    //private TextView antall;
     private Button queue;
     private Button meny;
     private Button home;
@@ -56,13 +49,13 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
         FirebaseApp.initializeApp(this);
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-        //henter ting fra forrige side
+        //gets infor from last page
         Intent intent = getIntent();
         email = intent.getStringExtra("email");
         personuid=intent.getStringExtra("uid");
         emnenavn =intent.getStringExtra("emnenavn");
         emnekode = intent.getStringExtra("emnekode");
-
+        //sets toolbar
         meny = (Button) findViewById(R.id.meny);
         meny.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,31 +74,23 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
                 startActivity(intent);
             }
         });
-        //TextView antall=(TextView) findViewById(R.id.antall);
-
+        //fins
         queue = (Button) findViewById(R.id.queue);
         queue.setOnClickListener(this);
-
-
         name = (TextView) findViewById(R.id.name);
-
-
         subjectinfo = (TextView) findViewById(R.id.name);
-        //subjectinfo.setText(emnekode);
         subnavn=(TextView) findViewById(R.id.subnavn);
         subnavn.setText(emnenavn+" " +emnekode);
-
         availible_until = (TextView) findViewById(R.id.avilible_until);
-
         count= (TextView) findViewById(R.id.count);
 
 
 
-
+        //establish connection to firebase
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("Subject");
         final DatabaseReference myRef2 = database.getReference("Subject").child(emnekode).child("StudAssList");
-        //henter ut alle som er i lsiten og legger dem i vår liste. Dette er fordi childeventlistener ikke kjøres i starten, og vi trenger listen med en gang.
+        //retireves a list of persons from database
         myRef.child(emnekode).child("StudAssList").child(personuid).child("Queue").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -114,56 +99,18 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
                 for (DataSnapshot child: children){
                     Person person = child.getValue(Person.class);
                     persons.add(person);
-
-
-
                 }
-                //setter teksten i texview
+
                 count.setText(""+ linecount()+"");
 
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
         });
 
-        //setter på en listener slik at vi appen blir opdatert på endringer automatisk og definerer hva som skal skje i de forskjellige tilfellene
-        /*myRef.child(emnekode).child("StudAssList").child(personuid).child("Queue").addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                //henter elementer som ble lagt til
-                fetchData(dataSnapshot);
-
-
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-                fetchDataDelete(dataSnapshot);
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-*/
-        //henter til liste
-
+        //retrieves list of studassess from firebase
         Query queryRef =myRef2.orderByChild("uid").equalTo(personuid);
         queryRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -174,14 +121,10 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
                 for (DataSnapshot child: children){
                     Person person = child.getValue(Person.class);
                     studasses.add(person);
-
-
-
                 }
 
                 name.setText(studasses.get(0).getName());
                 availible_until.setText(studasses.get(0).getTime_to_stop());
-
             }
 
             @Override
@@ -189,8 +132,9 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
 
             }
         });
+        //retriebes user
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
+        //retrieves users name
         DatabaseReference personRef = database.getReference("Person");
         personRef.child(user.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
@@ -208,13 +152,11 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void fetchData(DataSnapshot dataSnapshot) {
-        //students.clear();
         Person person = dataSnapshot.getValue(Person.class);
         persons.add(person);
     }
 
     private void fetchDataDelete(DataSnapshot dataSnapshot) {
-        //students.clear();
         Person person = dataSnapshot.getValue(Person.class);
         persons.remove(person);
     }
@@ -229,7 +171,7 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String email=user.getEmail();
         String uid=user.getUid();
-        //skriver til databse
+
         Person person =new Person();
         person.setEmail(user.getEmail());
         person.setName(myName);
@@ -237,10 +179,9 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
         Long tsLong = System.currentTimeMillis()/1000;
         String ts = tsLong.toString();
         person.setTimestamp(ts);
-        //
         Boolean gender = prefs.getBoolean("gender", false);
         person.setMale(gender);
-        //
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference();
         myRef.child("Subject").child(emnekode).child("StudAssList").child(personuid).child("Queue").child(uid).setValue(person);
@@ -251,18 +192,18 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         if (v==queue){
-            //kjører queueme
+
             QueueMe();
-            //går videre til neste aktivitet og tar med seg info
+           //bring info to next activity
             Intent moveToDetailIntent = new Intent(DetailedActivity.this, InQueue.class);
             moveToDetailIntent.putExtra("email",email);
             moveToDetailIntent.putExtra("uid",personuid);
             moveToDetailIntent.putExtra("emnekode",emnekode);
             moveToDetailIntent.putExtra("emnenavn",emnenavn);
-
+            //begin activity
             startActivity(moveToDetailIntent);
             finish();
-            //
+
         }
     }
 }

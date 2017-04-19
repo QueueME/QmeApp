@@ -31,9 +31,9 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         //Get Firebase auth instance
-FirebaseApp.initializeApp(this);
+        FirebaseApp.initializeApp(this);
         auth = FirebaseAuth.getInstance();
-
+        //closes down if one already has a user
          if (auth.getCurrentUser() != null) {
             startActivity(new Intent(LoginActivity.this, StudOrAss.class));
             finish();
@@ -44,7 +44,7 @@ FirebaseApp.initializeApp(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        //find butttons ect
         inputEmail = (EditText) findViewById(R.id.email);
         inputPassword = (EditText) findViewById(R.id.password);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -54,13 +54,14 @@ FirebaseApp.initializeApp(this);
 
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
-
+        //onclick for signing in
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LoginActivity.this, SignupActivity.class));
             }
         });
+        //onclick for resett password activity
 
         btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,7 +69,7 @@ FirebaseApp.initializeApp(this);
                 startActivity(new Intent(LoginActivity.this, ResetPasswordActivity.class));
             }
         });
-
+        //onclick for go to sign up activity
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

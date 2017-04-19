@@ -16,7 +16,7 @@ public class StudOrAss extends AppCompatActivity implements View.OnClickListener
     private Button home;
     private Intent intent;
 
-    private PrefManager prefManager;
+
 
 
 
@@ -70,44 +70,12 @@ public class StudOrAss extends AppCompatActivity implements View.OnClickListener
         startActivity(new Intent(StudOrAss.this, com.example.queueme.Infoscreens.WelcomeActivityStudent.class));
     }
     public void btnass(){
-        //prefManager = new PrefManager(this);
 
-        /*if (!prefManager.isFirstTimeLaunch()) {
-                launchHomeScreen();
 
-        }
-*/
 
 
             startActivity(new Intent(StudOrAss.this, WelcomeActivityStudass.class));
     }
 
-  /*  private void launchHomeScreen() {
-        prefManager.setFirstTimeLaunch(false);
-
-        final AlertDialog.Builder mbuilder = new AlertDialog.Builder(StudOrAss.this);
-        View mView = getLayoutInflater().inflate(R.layout.want_help, null);
-        mbuilder.setView(mView);
-        final AlertDialog dialog = mbuilder.create();
-        dialog.show();
-        Button give_help = (Button) mView.findViewById(give_me);
-        Button later = (Button) mView.findViewById(R.id.later);
-
-        give_help.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(StudOrAss.this, com.example.queueme.Infoscreens.WelcomeActivityStudass.class));
-                finish();
-            }
-        });
-        later.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(StudOrAss.this, ChooseSubjectAss.class));
-                finish();
-            }
-        });
-    }
-    */
 
 }

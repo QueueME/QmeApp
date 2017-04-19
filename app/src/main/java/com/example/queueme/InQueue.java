@@ -44,7 +44,7 @@ public class InQueue extends AppCompatActivity {
     private SharedPreferences prefs;
 
 
-    //notifikasjon
+    //notification
     NotificationCompat.Builder notification;
     private static final int uniqueID = 45612;
 
@@ -53,7 +53,7 @@ public class InQueue extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.inqueue);
 
-        //finner imageview og ser om brukeren er mann/kvinne
+        //finds imageviews and set them depending on gender
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         ImageView female=(ImageView) findViewById(R.id.girl);
         ImageView male=(ImageView) findViewById(R.id.man);
@@ -63,11 +63,11 @@ public class InQueue extends AppCompatActivity {
             male.setVisibility(View.INVISIBLE);
 
         }
-        //notifikasjon
+        //sets notification
         notification = new NotificationCompat.Builder(this);
         notification.setAutoCancel(true);
 
-        //henter info fra forrige activity
+        //gets info from last activity
         Intent intent = getIntent();
         email = intent.getStringExtra("email");
         personuid = intent.getStringExtra("uid");
@@ -76,7 +76,7 @@ public class InQueue extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         uid=user.getUid();
 
-//lager en referanse/kobling  til databasen vår
+        //creates link to firebase
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("Subject");
         final DatabaseReference myRef2 = database.getReference("Subject");
@@ -86,12 +86,13 @@ public class InQueue extends AppCompatActivity {
 
 
 
-        //finner textview
+        //finds buttons ect
         count = (TextView) findViewById(R.id.count);
         nrinline = (TextView) findViewById(R.id.nrInLine);
         emneinfo=(TextView)findViewById(R.id.emneinfo);
         emneinfo.setText(emnekode + " " + emnenavn);
         end = (Button) findViewById(R.id.step_out);
+        //onclick for ending queue. Open allert dialog
         end.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,7 +125,7 @@ public class InQueue extends AppCompatActivity {
 
 
 
-        //henter ut alle som er i lsiten og legger dem i vår liste. Dette er fordi childeventlistener ikke kjøres i starten, og vi trenger listen med en gang.
+        //gets everybody in the queue
         myRef.child(emnekode).child("StudAssList").child(personuid).child("Queue").orderByChild("timestamp").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -137,7 +138,7 @@ public class InQueue extends AppCompatActivity {
 
 
                 }
-                //setter teksten i texview
+                //sets text in TextView
                 count.setText(""+ linecount()+"");
                 //ifsetning
                 nrinline.setText("" + nrInline() + "");
@@ -146,7 +147,7 @@ public class InQueue extends AppCompatActivity {
                 if (!students.isEmpty()) {
                     if ((students.get(0).getUid() == uid)&& !first) {
                         first=true;
-                        //bygg notifikasjonen
+                        //builds the actual notification
                         notification.setSmallIcon(R.drawable.astudass);
                         notification.setTicker("Dette er ticker");
                         notification.setWhen(System.currentTimeMillis());
@@ -160,7 +161,7 @@ public class InQueue extends AppCompatActivity {
                         PendingIntent pendingIntent = PendingIntent.getActivity(InQueue.this, 0, new Intent(), PendingIntent.FLAG_UPDATE_CURRENT);
                         notification.setContentIntent(pendingIntent);
 
-                        // bygg notifikasjon og send det ut til enhet
+                        // sending notification
                         NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                         nm.notify(uniqueID, notification.build());
                         //
@@ -177,31 +178,11 @@ public class InQueue extends AppCompatActivity {
             }
         });
 
-        //setter på en listener slik at vi appen blir opdatert på endringer automatisk og definerer hva som skal skje i de forskjellige tilfellene
+        //defining action on people added and removed form queue
         myRef.child(emnekode).child("StudAssList").child(personuid).child("Queue").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
-
-               // Long tsLong = System.currentTimeMillis()/1000;
-               // String ts = tsLong.toString();
-               // Toast.makeText(InQueue.this, ts,
-               //         Toast.LENGTH_SHORT).show();
-                //henter elementer som ble lagt til
-               /* Person person = dataSnapshot.getValue(Person.class);
-
-                if (!(person.getUid() == uid)) {
-                    students.add(person);
-
-                }
-
-                //setter teksten i texview
-                count.setText(""+ linecount()+"");
-                //hvis vi plutselig er først i kø skal vi få beskjed
-                if (nrInline() == 0) {
-                    nrinline.setText("ITS YOUR TURN");
-                    //bytte layoutfarge og lage et checkmerke
-                }*/
             }
 
             @Override
@@ -219,9 +200,7 @@ public class InQueue extends AppCompatActivity {
                     finish();
 
                 } else{
-                    //   fetchDataDelete(dataSnapshot);
-                    //setter teksten i texview
-                    // count.setText("" + linecount() + "");
+
                 }
             }
 
@@ -244,17 +223,7 @@ public class InQueue extends AppCompatActivity {
         startActivity(new Intent(InQueue.this, StudOrAss.class));
         finish();
     }
-    private void fetchData(DataSnapshot dataSnapshot) {
-        //students.clear();
-        Person person = dataSnapshot.getValue(Person.class);
-        students.add(person);
-    }
 
-    private void fetchDataDelete(DataSnapshot dataSnapshot) {
-        //students.clear();
-        Person person = dataSnapshot.getValue(Person.class);
-        students.remove(person);
-    }
 
     private int linecount() {
         return students.size();
@@ -276,13 +245,6 @@ public class InQueue extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
-        /*if (mPager.getCurrentItem() == 0) {
-            // If the user is currently looking at the first step, allow the system to handle the
-            // Back button. This calls finish() on this activity and pops the back stack.
-            super.onBackPressed();
-        } else {
-            // Otherwise, select the previous step.
-            mPager.setCurrentItem(mPager.getCurrentItem() - 1);
-        }*/
+
     }
 }

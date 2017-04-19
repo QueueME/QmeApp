@@ -20,23 +20,19 @@ public class AddSubject extends AppCompatActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_subject);
-
+        //needed to connect to firebase
         FirebaseApp.initializeApp(this);
-
+        //finds buttons ect and sets onclicklistenes
         ekode= (EditText) findViewById(R.id.ekode);
         enavn= (EditText) findViewById(R.id.enavn);
-
         btnesave=(Button) findViewById(R.id.btnesave);
         btnesave.setOnClickListener(this);
 
     }
-
+//writes subject to databse
     public void onSaveClicked2(){
-        //lager emne
         Subject subject = new Subject();
 
-
-        //setter verdier til
         subject.setEmnekode(ekode.getText().toString());
         subject.setEmnenavn(enavn.getText().toString());
 

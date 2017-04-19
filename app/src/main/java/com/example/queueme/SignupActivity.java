@@ -2,7 +2,6 @@ package com.example.queueme;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -55,13 +54,15 @@ public class SignupActivity extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         btnResetPassword = (Button) findViewById(R.id.btn_reset_password);
 
+
+        //onclikk for reseting password
         btnResetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(SignupActivity.this, ResetPasswordActivity.class));
             }
         });
-
+        //onclick for signing in
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,6 +70,7 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
+        //onclick for registrering to the app
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,7 +138,7 @@ public class SignupActivity extends AppCompatActivity {
 
         });
     }
-    //lager en person i databasen med fulltnavn slik at vi kan bruke fullt navn senere
+    //creates a person object in the databse connected to the users UID
     private void createPersonFromUser(String fullname){
         String useruid="";
         String useremail="";
@@ -147,14 +149,9 @@ public class SignupActivity extends AppCompatActivity {
             // Name, email address, and profile photo Url
             String username = user.getDisplayName();
             useremail = user.getEmail();
-            Uri photoUrl = user.getPhotoUrl();
-
-            // The user's ID, unique to the Firebase project. Do NOT use this value to
-            // authenticate with your backend server, if you have one. Use
-            // FirebaseUser.getToken() instead.
             useruid = user.getUid();
         }
-
+        //spesify person attributes
         Person person =new Person();
         person.setName(fullname);
         person.setEmail(useremail);
@@ -169,6 +166,8 @@ public class SignupActivity extends AppCompatActivity {
             prefs.edit().putBoolean("gender", false).apply();
             person.setMale(false);
         }
+
+        //setting value
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef= database.getReference("Person");
         myRef.child(useruid).setValue(person);

@@ -23,25 +23,20 @@ public class AddPerson extends AppCompatActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addperson);
 
+        //finds buttons ect
         email=(EditText) findViewById(R.id.email);
         name =(EditText) findViewById(R.id.name);
-
-
-
         save=(Button) findViewById(R.id.save);
         btnsubject=(Button) findViewById(R.id.btnsubject);
-
+        //setts onclicklisteners
         save.setOnClickListener(this);
         btnsubject.setOnClickListener(this);
 
 
     }
-
+//writes personobject to database
     public void onSaveClicked(){
-        //lager bruker
         Person person = new Person();
-
-        //setter verdier til
         person.setEmail(email.getText().toString());
         person.setName(name.getText().toString());
 
@@ -49,36 +44,12 @@ public class AddPerson extends AppCompatActivity implements View.OnClickListener
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("Person");
         myRef.child(email.getText().toString()).setValue(person);
-        //String key = myRef.push().getKey();
-        //myRef.child(email.getText().toString()).child("List").push().setValue(person);
 
-
-
-         //myRef.child("Person").push().setValue(person);
-
-        //
-       /* myRef.child("Person").orderByChild("email").equalTo("akampenes@gmail.com").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String key = dataSnapshot.getKey();
-                myRef.child(key).push().setValue(person);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-        */
-
-
-        //myRef.child("Person").child("list").setValue(person.getPersons());
     }
     private void Switch(){
         startActivity(new Intent(AddPerson.this, AddSubject.class));
 
     }
-//
 
     @Override
     public void onClick(View v) {

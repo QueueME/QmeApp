@@ -42,10 +42,14 @@
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".ChooseSubjectAss"
-            android:parentActivityName=".StudOrAss"
+            android:name="com.example.queueme.ChooseSubjectAss"
             android:windowSoftInputMode="stateHidden"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:parentActivityName="com.example.queueme.StudOrAss" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.queueme.StudOrAss" />
+        </activity>
 
         <activity android:name=".FeedAdapterSubject" />
 
