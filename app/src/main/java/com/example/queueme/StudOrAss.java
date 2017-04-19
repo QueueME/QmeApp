@@ -22,9 +22,6 @@ public class StudOrAss extends AppCompatActivity implements View.OnClickListener
     @Override
     public void onBackPressed()
     {
-        super.onBackPressed();
-        startActivity(new Intent(StudOrAss.this, StudOrAss.class));
-        finish();
 
     }
 
@@ -79,10 +76,6 @@ public class StudOrAss extends AppCompatActivity implements View.OnClickListener
         startActivity(new Intent(StudOrAss.this, com.example.queueme.Infoscreens.WelcomeActivityStudent.class));
     }
     public void btnass(){
-
-
-
-
             startActivity(new Intent(StudOrAss.this, WelcomeActivityStudass.class));
     }
 
