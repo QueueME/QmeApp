@@ -76,6 +76,14 @@ public class SignupActivity extends AppCompatActivity {
                 String email = inputEmail.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
 
+
+                int blank = name.indexOf(' ');
+
+                if (blank == -1){
+                    Toast.makeText(getApplicationContext(), "Your fullname must contain at least two words", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
                     return;
@@ -134,6 +142,7 @@ public class SignupActivity extends AppCompatActivity {
         String useremail="";
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
         if (user != null) {
             // Name, email address, and profile photo Url
             String username = user.getDisplayName();
