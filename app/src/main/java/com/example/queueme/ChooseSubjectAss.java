@@ -41,6 +41,15 @@ public class ChooseSubjectAss extends Activity {
     private ArrayList<Subject> subjects;
     private TextView no_added_subject;
     private ImageView arrow_down;
+
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        startActivity(new Intent(ChooseSubjectAss.this, StudOrAss.class));
+        finish();
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

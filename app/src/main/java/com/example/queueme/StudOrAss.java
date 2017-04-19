@@ -19,6 +19,15 @@ public class StudOrAss extends AppCompatActivity implements View.OnClickListener
     private PrefManager prefManager;
 
 
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        startActivity(new Intent(StudOrAss.this, StudOrAss.class));
+        finish();
+
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

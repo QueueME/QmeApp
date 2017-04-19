@@ -23,7 +23,6 @@
         <activity android:name=".AddSubject"
             />
         <activity android:name=".ChoosePerson"
-            android:parentActivityName=".ChooseSubjectStud"
             android:screenOrientation="portrait" />
 
         <activity android:name=".MySessionSwipeFunction.ScreenSlidePagerActivity"
@@ -32,30 +31,31 @@
         <activity
             android:name=".DetailedActivity"
             android:label="@string/title_activity_detailed"
-            android:parentActivityName=".ChoosePerson"
             android:screenOrientation="portrait"/>
 
         <activity
             android:name=".StudOrAss"
             android:label="@string/title_activity_stud_or_ass"
-            android:parentActivityName=".SignupActivity"
+            android:parentActivityName=".Beginning"
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".ChooseSubjectAss"
-            android:parentActivityName=".StudOrAss"
+            android:name="com.example.queueme.ChooseSubjectAss"
             android:windowSoftInputMode="stateHidden"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+        />
 
-        <activity android:name=".FeedAdapterSubject" />
-
-        <activity android:name=".StartSession"
-            android:parentActivityName=".ChooseSubjectAss"
-            android:screenOrientation="portrait"/>
 
         <activity android:name=".ChooseSubjectStud"
-            android:parentActivityName=".StudOrAss"
+            android:screenOrientation="portrait"
+        />
+
+
+    <activity android:name=".FeedAdapterSubject" />
+
+        <activity android:name=".StartSession"
             android:screenOrientation="portrait"/>
+
 
         <activity android:name=".InQueue"
             android:screenOrientation="portrait"/>
@@ -76,8 +76,8 @@
             android:screenOrientation="portrait"/>
 
         <activity android:name=".LoginActivity"
-            android:parentActivityName=".SignupActivity"
             android:screenOrientation="portrait"/>
+
       <activity android:name=".Studassqueue.StudassQueue"></activity>
       
     </application>
