@@ -60,6 +60,7 @@ public class ChoosePerson extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ChoosePerson.this, ChooseSubjectStud.class));
+                finish();
             }
         });
 

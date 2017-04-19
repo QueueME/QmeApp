@@ -34,6 +34,15 @@ public class SignupActivity extends AppCompatActivity {
     private SharedPreferences prefs;
 
     @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        startActivity(new Intent(SignupActivity.this, Beginning.class));
+        finish();
+
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);

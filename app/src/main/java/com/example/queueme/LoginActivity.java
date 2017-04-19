@@ -27,6 +27,14 @@ public class LoginActivity extends AppCompatActivity {
     private String email;
 
     @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        startActivity(new Intent(LoginActivity.this, Beginning.class));
+        finish();
+
+    }
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 

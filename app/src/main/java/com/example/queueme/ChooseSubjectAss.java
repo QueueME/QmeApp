@@ -71,7 +71,7 @@ public class ChooseSubjectAss extends Activity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ChooseSubjectAss.this, StudOrAss.class));
-
+                finish();
             }
         });
 
