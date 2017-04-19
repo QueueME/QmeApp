@@ -36,6 +36,17 @@ public class ChooseSubjectStud extends Activity {
     private String uid;
     private TextView no_added_subject;
 
+
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        startActivity(new Intent(ChooseSubjectStud.this, StudOrAss.class));
+        finish();
+
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

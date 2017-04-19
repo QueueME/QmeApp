@@ -30,7 +30,14 @@ public class ChoosePerson extends AppCompatActivity {
     private TextView no_studass_availible;
 
 
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        startActivity(new Intent(ChoosePerson.this, ChooseSubjectStud.class));
+        finish();
 
+    }
 
 
     @Override
