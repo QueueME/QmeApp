@@ -31,7 +31,6 @@ public class WelcomeActivityStudent extends AppCompatActivity {
     private TextView[] dots;
     private int[] layouts;
     private Button btnSkip, btnNext;
-    private com.example.queueme.Infoscreens.PrefManager prefManager;
     private boolean meny=false;
     private String intentmeny;
 
@@ -40,11 +39,11 @@ public class WelcomeActivityStudent extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
-
+        //if previus intent is meny, meny should be true. if it is it should change boolean menyu
         Intent intent = getIntent();
         intentmeny=intent.getStringExtra("meny");
-
-        //hvis forrige side er meny skal den siden vises uansett. hvis den ikke kommer fra meny skal den kun vises første gang:
+        //if last page is meny it should show no matter what.
+        // if last page is home. it depends on the variable intentmeny. it should onl open the first time
      if (intentmeny==null) {
          //shared preference to see if it has been open before
          SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
@@ -149,13 +148,6 @@ public class WelcomeActivityStudent extends AppCompatActivity {
 
     private int getItem(int i) {
         return viewPager.getCurrentItem() + i;
-    }
-
-    private void launchChooseSubjectStud() {
-
-        prefManager.setFirstTimeLaunch(false);
-        startActivity(new Intent(WelcomeActivityStudent.this, ChooseSubjectStud.class));
-        finish();
     }
 
     //  viewpager change listener

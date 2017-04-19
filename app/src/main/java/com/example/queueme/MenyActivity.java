@@ -35,10 +35,9 @@ public class MenyActivity extends AppCompatActivity {
 
         //get firebase auth instance
         auth = FirebaseAuth.getInstance();
-
         //get current user
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
+        //instansietes autListener
         authListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -51,12 +50,11 @@ public class MenyActivity extends AppCompatActivity {
                 }
             }
         };
-
+        //finds buttons ect
         btnChangeEmail = (Button) findViewById(R.id.change_email_button);
-        btnChangeEmail.setVisibility(View.GONE);
+        btnChangeEmail.setVisibility(View.GONE); //not used in oncreate--> sets to gone
         btnChangePassword = (Button) findViewById(R.id.change_password_button);
-        btnChangePassword.setVisibility(View.GONE);
-
+        btnChangePassword.setVisibility(View.GONE);//not used in oncreate--> sets to gone
         btnSendResetEmail = (Button) findViewById(R.id.sending_pass_reset_button);
         btnRemoveUser = (Button) findViewById(R.id.remove_user_button);
         changeEmail = (Button) findViewById(R.id.changeEmail);
@@ -67,12 +65,12 @@ public class MenyActivity extends AppCompatActivity {
         btnback = (Button) findViewById(R.id.btnback);
         btn_turtorial_ass= (Button) findViewById(R.id.btn_turtorial_ass);
         btn_turtorial_stud= (Button) findViewById(R.id.btn_turtorial_stud);
-
         oldEmail = (EditText) findViewById(R.id.old_email);
         newEmail = (EditText) findViewById(R.id.new_email);
         password = (EditText) findViewById(R.id.password);
         newPassword = (EditText) findViewById(R.id.newPassword);
 
+        //sets all view to gone. It is set to VISIBLE onclick later
         oldEmail.setVisibility(View.GONE);
         newEmail.setVisibility(View.GONE);
         password.setVisibility(View.GONE);
@@ -81,23 +79,19 @@ public class MenyActivity extends AppCompatActivity {
         changePassword.setVisibility(View.GONE);
         sendEmail.setVisibility(View.GONE);
         remove.setVisibility(View.GONE);
-
+        //sets progressbar
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
-
         if (progressBar != null) {
             progressBar.setVisibility(View.GONE);
         }
-
+        //onclick for back to homescreen
         btnback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*Intent intent = getIntent();
-                String back = intent.getStringExtra("activity");
-                startActivity(MenyActivity.this,back.class);
-                */
                 finish();
             }
         });
+        //onclick for turtoials for student assistants
         btn_turtorial_ass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,6 +103,7 @@ public class MenyActivity extends AppCompatActivity {
 
             }
         });
+        //onclick for tutrorials for students
         btn_turtorial_stud.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,6 +113,7 @@ public class MenyActivity extends AppCompatActivity {
             }
         });
 
+        //DO NOT REMOVE IN CASE OF UPDATES LATER ON!!
         /*btnChangeEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -210,6 +206,7 @@ public class MenyActivity extends AppCompatActivity {
             }
         });
 */
+        //onclick on reset email. setting send email viws to visibe
         btnSendResetEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -223,7 +220,7 @@ public class MenyActivity extends AppCompatActivity {
                 remove.setVisibility(View.GONE);
             }
         });
-
+        //onclick sende emalil with password
         sendEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -248,7 +245,7 @@ public class MenyActivity extends AppCompatActivity {
                 }
             }
         });
-
+        // onclick for removing user
         btnRemoveUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -296,7 +293,7 @@ public class MenyActivity extends AppCompatActivity {
 
             }
         });
-
+        //onclick for signing out
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

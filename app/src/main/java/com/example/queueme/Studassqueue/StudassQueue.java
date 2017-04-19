@@ -45,36 +45,30 @@ public class StudassQueue extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_studass_queue);
-
+        //gets infor fram last page
         Intent intent = getIntent();
         emnenavn = intent.getStringExtra("emnenavn");
         emnekode = intent.getStringExtra("emnekode");
-
-
-
-        View mView= getLayoutInflater().inflate(R.layout.my_session_svipe,null);
-        // image.setVisibility(View.INVISIBLE);
-
+        //finds buttons ect
         person=(TextView) findViewById(R.id.person);
         nr=(TextView) findViewById(R.id.nr);
         next_in_line= (TextView) findViewById(R.id.next_in_line);
         next_in_line.setVisibility(View.INVISIBLE);
-
         person.setVisibility(View.INVISIBLE);
         nr.setText("0");
         im = (ImageView) findViewById(R.id.im);
+        //connects to firebase
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         ref = database.getReference("Subject");
-
         DatabaseReference myRef = database.getReference("Subject");
         final DatabaseReference myRef2 = database.getReference("Subject");
-
+        //sets onclick for endig queueu.
         end =(Button) findViewById(R.id.end);
         end.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-
+                //shows dialog asking you if you are sure you want to quit
                 final AlertDialog.Builder mbuilder = new AlertDialog.Builder(StudassQueue.this);
                 View mView= getLayoutInflater().inflate(R.layout.popup_warning,null);
                 mbuilder.setView(mView);
@@ -85,6 +79,7 @@ public class StudassQueue extends AppCompatActivity {
                 yes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        //quit
                         removeQueue(myRef2);
                         dialog.dismiss();
                     }
@@ -92,6 +87,7 @@ public class StudassQueue extends AppCompatActivity {
                 no.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        //close dialog
                         dialog.dismiss();
                     }
                 });
@@ -101,7 +97,7 @@ public class StudassQueue extends AppCompatActivity {
         });
         next =(Button ) findViewById(R.id.next);
         next.setVisibility(View.INVISIBLE);
-
+        //onclick deletes first perosn in line and sends you the next
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,7 +110,7 @@ public class StudassQueue extends AppCompatActivity {
         });
 
 
-
+        //get user uid
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             uid = user.getUid();
@@ -123,7 +119,7 @@ public class StudassQueue extends AppCompatActivity {
         final ArrayList<Person> students = new ArrayList<Person>();
         this.students=students;
 
-        //lager funskjoner når endring under denne referansen skjer
+        //defines what happends when someone is added and removed
         myRef.child(emnekode).child("StudAssList").child(uid).child("Queue").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -132,11 +128,7 @@ public class StudassQueue extends AppCompatActivity {
                     next.setVisibility(View.VISIBLE);
                 }
                 fetchData(dataSnapshot);
-
                 Next();
-
-
-
             }
 
             @Override
@@ -148,7 +140,7 @@ public class StudassQueue extends AppCompatActivity {
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
 
-                //henter ut personene som slettes og sletter han fra listen
+                //deletes the person from local list
                 Person person1 = dataSnapshot.getValue(Person.class);
                 for (Person personinlist:students){
                     if (person1.getUid()==personinlist.getUid()){
@@ -159,10 +151,6 @@ public class StudassQueue extends AppCompatActivity {
                     }
                 }
                 nr.setText(String.valueOf(linecount()));
-
-
-
-
                 if (!students.isEmpty()) {
 
                     person.setText(students.get(0).getName() + " are next in line");
@@ -170,8 +158,6 @@ public class StudassQueue extends AppCompatActivity {
                     person.setVisibility(View.INVISIBLE);
                     next.setVisibility(View.INVISIBLE);
                     im.setImageResource(R.drawable.coffeeeeeeeeeeee);
-
-
 
                 }
 
@@ -225,24 +211,13 @@ public class StudassQueue extends AppCompatActivity {
     }
 
     private void removeQueue(DatabaseReference ref){
-
         startActivity(new Intent(StudassQueue.this, StudOrAss.class));
         ref.child(emnekode).child("StudAssList").child(uid).removeValue();
         finish();
     }
-    private void fetchData(DataSnapshot dataSnapshot)
-    {
-        //students.clear();
+    private void fetchData(DataSnapshot dataSnapshot){
         Person person = dataSnapshot.getValue(Person.class);
         students.add(person);
-    }
-    private void fetchDataDelete(DataSnapshot dataSnapshot)
-    {
-        //students.clear();
-        Person person = dataSnapshot.getValue(Person.class);
-        students.remove(0);
-
-
     }
 
     private int linecount() {

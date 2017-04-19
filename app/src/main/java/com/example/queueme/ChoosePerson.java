@@ -47,14 +47,12 @@ public class ChoosePerson extends AppCompatActivity {
 
         FirebaseApp.initializeApp(this);
 
-
+        //sets toolbar
         meny = (Button) findViewById(R.id.meny);
-
         meny.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ChoosePerson.this, MenyActivity.class));
-
             }
         });
         home = (Button) findViewById(R.id.home);
@@ -62,22 +60,21 @@ public class ChoosePerson extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ChoosePerson.this, ChooseSubjectStud.class));
-
             }
         });
 
         no_studass_availible = (TextView) findViewById(R.id.no_one_availible);
-        //finner listview
 
+        //finds listview
         l=(ListView) findViewById(R.id.listview);
 
 
-        //henter ut info fra forrige side
+        //gets infor from last page
         Intent intent = getIntent();
         emnenavn = intent.getStringExtra("emnenavn");
         emnekode  = intent.getStringExtra("emnekode");
 
-        //Henter ut perosnene fra databasen og legger dem i persons listen
+        //connects to firebase
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference();
         everything(myRef,emnekode);
@@ -85,7 +82,7 @@ public class ChoosePerson extends AppCompatActivity {
 
 
     }
-
+//gets every studass in the subject and puts them in a arrayadapter
 public void everything(DatabaseReference myRef, final String emnekode){
     myRef.child("Subject").child(emnekode).child("StudAssList").addValueEventListener(new ValueEventListener() {
         @Override
@@ -107,23 +104,18 @@ public void everything(DatabaseReference myRef, final String emnekode){
             }else {
                 no_studass_availible.setVisibility(View.GONE);
             }
-
-            //lager et adapter
-
+            //creates and sets adapter
             FeedAdapter_ChoosePerson feedAdapter = new FeedAdapter_ChoosePerson(ChoosePerson.this, R.layout.list_subjectitem_person, persons);
             l.setAdapter(feedAdapter);
-            //definerer hva som skal skje når man trykker på en person
+            //sets onclicklisteners for each item
             l.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Person person = (Person) persons.get(position);
                     Intent moveToDetailIntent = new Intent(ChoosePerson.this, DetailedActivity.class);
 
-
                     String email = person.getEmail().toString();
                     String uid = person.getUid().toString();
-
-
 
                     moveToDetailIntent.putExtra("email",email);
                     moveToDetailIntent.putExtra("uid",uid);

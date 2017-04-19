@@ -28,6 +28,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
         setContentView(R.layout.resetpassword);
         FirebaseApp.initializeApp(this);
 
+        //finds buttons ect
         inputEmail = (EditText) findViewById(R.id.email);
         btnReset = (Button) findViewById(R.id.btn_reset_password);
         btnBack = (Button) findViewById(R.id.btn_back);
@@ -35,6 +36,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
+        //onclick back to login
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,6 +44,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
             }
         });
 
+        //onclick send password on mail
         btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

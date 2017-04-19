@@ -14,10 +14,13 @@ public class Person {
     private boolean isMale;
     private String timestamp;
     ArrayList<Person> persons = new ArrayList<Person>();
+    //empty constructor
     public void Person(){
 
     }
 
+
+    //getters and setters
     public boolean isMale() {
         return isMale;
     }

@@ -21,7 +21,7 @@ public class Beginning extends AppCompatActivity {
 
         FirebaseApp.initializeApp(this);
         auth = FirebaseAuth.getInstance();
-
+        //if user has allready logged in return to home
         if (auth.getCurrentUser() != null) {
             startActivity(new Intent(Beginning.this, StudOrAss.class));
             finish();
@@ -29,8 +29,8 @@ public class Beginning extends AppCompatActivity {
 
         login=(Button) findViewById(R.id.login);
         reg=(Button) findViewById(R.id.reg);
-        //swipe=(Button) findViewById(R.id.swipe);
 
+        //sends you to loginactivity
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -38,6 +38,7 @@ public class Beginning extends AppCompatActivity {
 
             }
         });
+        //sends you yo signupactivity
         reg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,7 +46,7 @@ public class Beginning extends AppCompatActivity {
 
             }
         });
-        //swipe.setOnClickListener(this);
+
     }
 
 

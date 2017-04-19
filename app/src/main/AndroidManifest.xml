@@ -43,12 +43,14 @@
             android:name="com.example.queueme.ChooseSubjectAss"
             android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait"
+
         />
 
 
         <activity android:name=".ChooseSubjectStud"
             android:screenOrientation="portrait"
         />
+
 
 
     <activity android:name=".FeedAdapterSubject" />

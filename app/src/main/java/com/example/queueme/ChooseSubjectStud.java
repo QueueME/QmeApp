@@ -29,8 +29,6 @@ import java.util.ArrayList;
 
 
 public class ChooseSubjectStud extends Activity {
-    // Search EditText
-    //private EditText inputSearch;
     ArrayAdapter feedAdapter;
     private Button popup;
     private Button meny;
@@ -53,7 +51,7 @@ public class ChooseSubjectStud extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.alternative_choose_subject_stud);
-
+        //sets toolbar
         meny = (Button) findViewById(R.id.meny);
         meny.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,29 +68,22 @@ public class ChooseSubjectStud extends Activity {
 
             }
         });
-        //finer listview og setter som variabel
+        //finds buttons ect
         final ListView l=(ListView) findViewById(R.id.listview);
         //finner buttons
         popup = (Button) findViewById(R.id.popup);
         no_added_subject = (TextView) findViewById(R.id.no_added_subject);
         no_added_subject.setVisibility(View.VISIBLE);
-
-
-
-        //lager listen alle fagene skal legger i
+        //instanciates list of subjects
         final ArrayList<Subject> subjects = new ArrayList<Subject>();
 
-        //inputSearch = (EditText) findViewById(R.id.inputSearch);
-
-
-        //henter ut alle subjects som ligger i databasen og legger i liste
+        //connects to database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference myRef = database.getReference();
-        // brukes til dialogen:
         final DatabaseReference myRefdialog = database.getReference();
         final DatabaseReference myRefdialog2 = database.getReference();
-        //
-        //henter info om bruker
+
+        //gets current user
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         this.uid = user.getUid();
         myRef.child("Person").child(user.getUid()).child("FavoriteStudSubject").addValueEventListener(new ValueEventListener() {
@@ -116,37 +107,26 @@ public class ChooseSubjectStud extends Activity {
 
                 }
 
-                //lager arrayadapter som viser listene
-
+                //creates arrayadapter to display list
                 feedAdapter = new FeedAdapter_ChooseSubject_Ass(ChooseSubjectStud.this, R.layout.list_subjectitem_ass, subjects);
-
+                //sets adapter
                 l.setAdapter(feedAdapter);
-                //definerer hva som skjer når man trykker på searchknappen
 
-                //lager funkjsonen når man trykker på en av knappene i listviewen
+                //sets onclick listeners for each item in adapter
                 l.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Subject subject = (Subject) subjects.get(position);
+                        //creates intent
                         Intent moveToDetailIntent = new Intent(ChooseSubjectStud.this, ChoosePerson.class);
-                        // moveToDetailIntent.putExtra("bkjb", );
+                      //brings info to next page
                         String emnekode= subject.getEmnekode();
                         String emnenavn = subject.getEmnenavn();
-
-
-
-
                         moveToDetailIntent.putExtra("emnekode",emnekode);
                         moveToDetailIntent.putExtra("emnenavn",emnenavn);
-
-
                         startActivity(moveToDetailIntent);
-
-
-
-
                     }
                 });
 
@@ -158,7 +138,7 @@ public class ChooseSubjectStud extends Activity {
 
             }
         });
-
+        //onclick for popup
         popup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -172,10 +152,10 @@ public class ChooseSubjectStud extends Activity {
                 Button finish = (Button) mView.findViewById(R.id.finish);
                 final ListView listView=(ListView) mView.findViewById(R.id.listview);
 
-                //lager listen alle fagene skal legger i
+               //list for search array
                 final ArrayList<Subject> subjects = new ArrayList<Subject>();
 
-                //
+                //fills list from database
                 myRef.child("Subject").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -189,11 +169,10 @@ public class ChooseSubjectStud extends Activity {
 
                         }
 
-                        //lager arrayadapter som viser listene
-
+                        //creates new arraylist
                         feedAdapter = new ArrayAdapter(ChooseSubjectStud.this, android.R.layout.simple_list_item_1,subjects);
                         listView.setAdapter(feedAdapter);
-                        //definerer hva som skjer når man trykker på searchknappen
+                        //defines search criterias
                         inputSearch.addTextChangedListener(new TextWatcher() {
                             @Override
                             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -210,7 +189,7 @@ public class ChooseSubjectStud extends Activity {
 
                             }
                         });
-                        //lager funkjsonen når man trykker på en av knappene i listviewen
+                        //creates onclick listener for each item
                         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 
@@ -219,9 +198,7 @@ public class ChooseSubjectStud extends Activity {
                                 Subject subject = (Subject) subjects.get(position);
                                 String emnekode= subject.getEmnekode();
                                 String emnenavn = subject.getEmnenavn();
-                                //henter brukerdata
                                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
                                 myRefdialog2.child("Person").child(user.getUid()).child("FavoriteStudSubject").child(subject.getEmnekode()).setValue(subject);
                                 Toast.makeText(ChooseSubjectStud.this,"Subject added to favorites",Toast.LENGTH_SHORT).show();
                                 no_added_subject.setVisibility(View.INVISIBLE);
@@ -229,7 +206,6 @@ public class ChooseSubjectStud extends Activity {
 
                             }
                         });
-
 
                     }
 
@@ -249,6 +225,7 @@ public class ChooseSubjectStud extends Activity {
             }
 
         });
+        //onclick for long touch. Creates a dialog allowin for deletion of item
         l.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {

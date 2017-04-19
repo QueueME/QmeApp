@@ -47,7 +47,7 @@ public class StartSession extends AppCompatActivity implements View.OnClickListe
 
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-
+        //sets toolbar
         meny = (Button) findViewById(R.id.meny);
         meny.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,24 +64,24 @@ public class StartSession extends AppCompatActivity implements View.OnClickListe
 
             }
         });
-        //henter brukerens info
+        //gets user ingo
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         myUID=user.getUid();
-        //henter info fra forrige side
+        //gets info from last activity
 
         Intent intent = getIntent();
         emnenavn = intent.getStringExtra("emnenavn");
         emnekode = intent.getStringExtra("emnekode");
-        //finner knapper
+        //finds buttons
         queue = (Button) findViewById(R.id.queue);
         queue.setOnClickListener(this);
-        //setter tekst
+        //finds text
         time = (EditText) findViewById(R.id.time_up_to);
         subject= (TextView) findViewById(R.id.subject);
         subject.setText(emnekode +" "+ emnenavn);
 
 
-        //henter til liste
+        //retrieves  list of persons in firebase
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             final DatabaseReference myRef = database.getReference();
             myRef.child("Person").addValueEventListener(new ValueEventListener() {
@@ -106,7 +106,7 @@ public class StartSession extends AppCompatActivity implements View.OnClickListe
 
                 }
         });
-
+        //retrives users name
         DatabaseReference personRef = database.getReference("Person");
         personRef.child(user.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
@@ -128,31 +128,27 @@ public class StartSession extends AppCompatActivity implements View.OnClickListe
 
 
     private void QueueMe(){
-
-        //subject.setText(persons.get(0).getUid());
-
-
-
+        //instanciates database
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-
-
         FirebaseDatabase database = FirebaseDatabase.getInstance();
+
         DatabaseReference myRef = database.getReference("Person");
         myRef.child(user.getUid()).child("time_to_stop").setValue( time.getText().toString());
+
+        //creates person to be added in firebase
         Person person = new Person();
         person.setTime_to_stop(time.getText().toString());
         person.setName(myName);
         person.setEmail(user.getEmail());
         person.setUid(user.getUid());
-        ///////////////////////////
+
         Boolean gender = prefs.getBoolean("gender", false);
         person.setMale(gender);
-        //////////////////////
+
         DatabaseReference myRef2 = database.getReference("Subject");
         myRef2.child(emnekode).child("StudAssList").child(user.getUid()).setValue(person);
 
-
+        //puts info to Studassqueue
         Intent moveToDetailIntent = new Intent(StartSession.this,com.example.queueme.Studassqueue.StudassQueue.class);
         moveToDetailIntent.putExtra("emnekode",emnekode);
         moveToDetailIntent.putExtra("emnenavn",emnenavn);
