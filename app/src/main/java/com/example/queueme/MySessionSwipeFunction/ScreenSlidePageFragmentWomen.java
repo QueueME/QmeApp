@@ -9,13 +9,13 @@ import android.view.ViewGroup;
 import com.example.queueme.R;
 
 
-public class ScreenSlidePageFragment extends Fragment {
+public class ScreenSlidePageFragmentWomen extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(
-                R.layout.fragment_screen_slide_page_male, container, false);
+                R.layout.fragment_screen_slide_page, container, false);
 
         return rootView;
     }

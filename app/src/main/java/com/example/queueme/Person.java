@@ -11,6 +11,22 @@ public class Person {
     private String email;
     private String uid;
     private String time_to_stop;
+    private boolean isMale;
+    private String timestamp;
+    ArrayList<Person> persons = new ArrayList<Person>();
+    public void Person(){
+
+    }
+
+    public boolean isMale() {
+        return isMale;
+    }
+
+
+    public void setMale(boolean male) {
+        isMale = male;
+    }
+
 
     public String getTimestamp() {
         return timestamp;
@@ -20,19 +36,10 @@ public class Person {
         this.timestamp = timestamp;
     }
 
-    private String timestamp;
 
 
 
 
-
-    ArrayList<Person> persons = new ArrayList<Person>();
-
-
-
-    public void Person(){
-
-    }
 
     public String getUid() {
         return uid;

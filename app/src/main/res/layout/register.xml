@@ -44,12 +44,13 @@
         android:layout_height="wrap_content"
         android:background="@color/btn_logut_bg"
         android:text="Registrer"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/password"
         android:layout_marginRight="0dp"
         app:layout_constraintRight_toRightOf="@+id/password"
         android:layout_marginLeft="0dp"
-        app:layout_constraintLeft_toLeftOf="@+id/imageView14" />
+        app:layout_constraintLeft_toLeftOf="@+id/imageView14"
+        app:layout_constraintHorizontal_bias="1.0"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/male" />
 
     <Button
         android:id="@+id/btn_reset_password"
@@ -160,5 +161,35 @@
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="@+id/btn_reset_password"
         android:visibility="gone"/>
+
+    <CheckBox
+        android:id="@+id/male"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="8dp"
+        android:text="Male"
+        android:textColor="@android:color/background_light"
+        app:buttonTint="@android:color/background_light"
+        app:layout_constraintLeft_toLeftOf="@+id/imageView14"
+        app:layout_constraintTop_toBottomOf="@+id/password" />
+
+    <CheckBox
+        android:id="@+id/female"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Female"
+        android:textColor="@android:color/background_light"
+        app:buttonTint="@android:color/background_light"
+        app:layout_constraintBottom_toBottomOf="@+id/male"
+        app:layout_constraintHorizontal_bias="0.984"
+        app:layout_constraintLeft_toRightOf="@+id/male"
+        app:layout_constraintRight_toRightOf="@+id/password"
+        app:layout_constraintTop_toBottomOf="@+id/password"
+        app:layout_constraintVertical_bias="1.0" />
 
 </android.support.constraint.ConstraintLayout>

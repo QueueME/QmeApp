@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.queueme.Person;
@@ -41,20 +42,25 @@ public class FeedAdapter_ChoosePerson extends ArrayAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         View view = layoutInflater.inflate(layoutResource, parent, false);
+        ImageView im = (ImageView)view.findViewById(R.id.studass_icon_personitem);
 
 
         TextView name = (TextView) view.findViewById(R.id.tvname);
        // TextView email = (TextView) view.findViewById(R.id.tvemail);
         TextView time = (TextView) view.findViewById(R.id.time_until);
 
+
         Person currentApp = persons.get(position);
 
+        if(currentApp.isMale()==false){
+            im.setImageResource(R.drawable.choosegirlstud);
 
+        }
         name.setText(currentApp.getName());
         //email.setText(currentApp.getEmail());
         time.setText(currentApp.getTime_to_stop());
 
-
+//
         return view;
     }
 

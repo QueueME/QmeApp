@@ -4,13 +4,16 @@ import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.NotificationCompat;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,8 +41,10 @@ public class InQueue extends AppCompatActivity {
     private ArrayList<Person> students = new ArrayList<Person>();
     private Button end;
     private boolean first=false;
+    private SharedPreferences prefs;
 
-//notifikasjon
+
+    //notifikasjon
     NotificationCompat.Builder notification;
     private static final int uniqueID = 45612;
 
@@ -48,6 +53,16 @@ public class InQueue extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.inqueue);
 
+        //finner imageview og ser om brukeren er mann/kvinne
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        ImageView female=(ImageView) findViewById(R.id.girl);
+        ImageView male=(ImageView) findViewById(R.id.man);
+        Boolean gender = prefs.getBoolean("gender", false);
+        if (!gender){
+            female.setVisibility(View.VISIBLE);
+            male.setVisibility(View.INVISIBLE);
+
+        }
         //notifikasjon
         notification = new NotificationCompat.Builder(this);
         notification.setAutoCancel(true);
@@ -65,6 +80,11 @@ public class InQueue extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("Subject");
         final DatabaseReference myRef2 = database.getReference("Subject");
+
+
+
+
+
 
         //finner textview
         count = (TextView) findViewById(R.id.count);

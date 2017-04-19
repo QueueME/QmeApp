@@ -1,6 +1,7 @@
 package com.example.queueme.MySessionSwipeFunction;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -58,6 +60,11 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
     private String uid;
     private DatabaseReference ref;
     private ImageView image;
+    private boolean first=true;
+
+    public ScreenSlidePagerActivity() {
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,12 +76,12 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
 
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(pager);
-        mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
+        mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(),getApplicationContext());
         mPager.setAdapter(mPagerAdapter);
         mPager.addOnPageChangeListener(viewPagerPageChangeListener);
 
-        //image = (ImageView) mPager.findViewById(R.id.imageView);
-
+        View mView= getLayoutInflater().inflate(R.layout.my_session_svipe,null);
+       // image.setVisibility(View.INVISIBLE);
 
         person=(TextView) findViewById(R.id.person);
         nr=(TextView) findViewById(R.id.nr);
@@ -153,11 +160,23 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
         myRef.child(emnekode).child("StudAssList").child(uid).child("Queue").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                //henter data og legger til personen som addes til listen over
+
+                if (first){
+                    NUM_PAGES+=1;
+                    mPagerAdapter.notifyDataSetChanged();
+                    int current = mPager.getCurrentItem()+1;
+                    if (current < NUM_PAGES) {
+                        // move to next screen
+                        mPager.setCurrentItem(current);
+                    }
+                }
+                fetchData(dataSnapshot);
+                first=false;
                 NUM_PAGES+=1;
                 mPagerAdapter.notifyDataSetChanged();
 
-                //henter data og legger til personen som addes til listen over
-                fetchData(dataSnapshot);
+
                 //setter tekst i textviewene
                 //int studentsnr= students.size();
                 nr.setText(String.valueOf(linecount()));
@@ -316,6 +335,7 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
             }else{
             }
 
+
             //kan override getcount()???
         }
 
@@ -328,14 +348,47 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
      * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
      * sequence.
      */
-    private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
-        public ScreenSlidePagerAdapter(FragmentManager fm) {
+        private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
+        private LayoutInflater inflater;
+        private Context context;
+
+        public ScreenSlidePagerAdapter(FragmentManager fm,Context c) {
             super(fm);
+            context=c;
         }
+
 
         @Override
         public Fragment getItem(int position) {
-            return new ScreenSlidePageFragment();
+
+            /*if(!students.isEmpty()) {
+                if (!students.get(0).isMale()) {
+                    return new ScreenSlidePageFragment();
+
+                }
+                if (students.get(0).isMale()) {
+                    return new ScreenSlidePageFragmentWomen();
+
+                }
+            }
+
+         /* if (position==1){
+                return  new ScreenSlidePageFragmentWomen();
+          }
+          */
+            Fragment fragment = new ScreenSlidePagerFragmentNone();
+            Bundle bundle = new Bundle();
+            if (!students.isEmpty()){
+                bundle.putBoolean("gender",students.get(0).isMale());
+            }
+            else {
+                bundle.putString("empty","empty");
+
+            }
+            fragment.setArguments(bundle);
+
+            return fragment;
+
         }
 
         @Override

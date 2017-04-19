@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:src="@drawable/girlstud" />
+        android:src="@drawable/astudfull" />
 
 
 </RelativeLayout>

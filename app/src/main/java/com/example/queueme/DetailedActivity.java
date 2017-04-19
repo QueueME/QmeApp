@@ -1,7 +1,9 @@
 package com.example.queueme;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -43,12 +45,16 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
     private Button queue;
     private Button meny;
     private Button home;
+
+    private SharedPreferences prefs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.alternative_queueinfo);
 
         FirebaseApp.initializeApp(this);
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         //henter ting fra forrige side
         Intent intent = getIntent();
@@ -231,6 +237,10 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
         Long tsLong = System.currentTimeMillis()/1000;
         String ts = tsLong.toString();
         person.setTimestamp(ts);
+        //
+        Boolean gender = prefs.getBoolean("gender", false);
+        person.setMale(gender);
+        //
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference();
         myRef.child("Subject").child(emnekode).child("StudAssList").child(personuid).child("Queue").child(uid).setValue(person);

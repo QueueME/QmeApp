@@ -30,7 +30,7 @@
         android:textSize="14sp" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/queue_stud"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_alignParentLeft="true"
@@ -59,7 +59,7 @@
         android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView"
+        android:layout_below="@+id/queue_stud"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:text="I will be availible from now to:"
