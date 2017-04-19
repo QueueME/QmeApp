@@ -129,8 +129,8 @@
 
     <ImageView
         android:id="@+id/girl"
-        android:layout_width="269dp"
-        android:layout_height="258dp"
+        android:layout_width="308dp"
+        android:layout_height="289dp"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
@@ -141,6 +141,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/man"
-        app:srcCompat="@drawable/happygirl" />
+        app:srcCompat="@drawable/coffeegirl2"
+        tools:layout_editor_absoluteX="20dp" />
 
 </android.support.constraint.ConstraintLayout>

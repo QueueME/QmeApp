@@ -60,6 +60,7 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
     private String uid;
     private DatabaseReference ref;
     private ImageView image;
+    private boolean first=true;
 
     public ScreenSlidePagerActivity() {
     }
@@ -159,11 +160,23 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
         myRef.child(emnekode).child("StudAssList").child(uid).child("Queue").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                //henter data og legger til personen som addes til listen over
+
+                if (first){
+                    NUM_PAGES+=1;
+                    mPagerAdapter.notifyDataSetChanged();
+                    int current = mPager.getCurrentItem()+1;
+                    if (current < NUM_PAGES) {
+                        // move to next screen
+                        mPager.setCurrentItem(current);
+                    }
+                }
+                fetchData(dataSnapshot);
+                first=false;
                 NUM_PAGES+=1;
                 mPagerAdapter.notifyDataSetChanged();
 
-                //henter data og legger til personen som addes til listen over
-                fetchData(dataSnapshot);
+
                 //setter tekst i textviewene
                 //int studentsnr= students.size();
                 nr.setText(String.valueOf(linecount()));
@@ -348,7 +361,7 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
         @Override
         public Fragment getItem(int position) {
 
-          /*  if(!students.isEmpty()) {
+            /*if(!students.isEmpty()) {
                 if (!students.get(0).isMale()) {
                     return new ScreenSlidePageFragment();
 
@@ -357,12 +370,24 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
                     return new ScreenSlidePageFragmentWomen();
 
                 }
-            }*/
+            }
 
-          if (position==1){
+         /* if (position==1){
                 return  new ScreenSlidePageFragmentWomen();
           }
-            return new ScreenSlidePageFragment();
+          */
+            Fragment fragment = new ScreenSlidePagerFragmentNone();
+            Bundle bundle = new Bundle();
+            if (!students.isEmpty()){
+                bundle.putBoolean("gender",students.get(0).isMale());
+            }
+            else {
+                bundle.putString("empty","empty");
+
+            }
+            fragment.setArguments(bundle);
+
+            return fragment;
 
         }
 

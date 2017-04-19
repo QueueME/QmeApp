@@ -1,14 +1,15 @@
 package com.example.queueme;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.queueme.MySessionSwipeFunction.ScreenSlidePagerActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -36,12 +37,16 @@ public class StartSession extends AppCompatActivity implements View.OnClickListe
     private Button meny;
     private Button home;
     private String myName;
+    private SharedPreferences prefs;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.startsession);
+
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
 
         meny = (Button) findViewById(R.id.meny);
         meny.setOnClickListener(new View.OnClickListener() {
@@ -140,11 +145,15 @@ public class StartSession extends AppCompatActivity implements View.OnClickListe
         person.setName(myName);
         person.setEmail(user.getEmail());
         person.setUid(user.getUid());
+        ///////////////////////////
+        Boolean gender = prefs.getBoolean("gender", false);
+        person.setMale(gender);
+        //////////////////////
         DatabaseReference myRef2 = database.getReference("Subject");
         myRef2.child(emnekode).child("StudAssList").child(user.getUid()).setValue(person);
 
 
-        Intent moveToDetailIntent = new Intent(StartSession.this,ScreenSlidePagerActivity.class);
+        Intent moveToDetailIntent = new Intent(StartSession.this,com.example.queueme.Studassqueue.StudassQueue.class);
         moveToDetailIntent.putExtra("emnekode",emnekode);
         moveToDetailIntent.putExtra("emnenavn",emnenavn);
         startActivity(moveToDetailIntent);
