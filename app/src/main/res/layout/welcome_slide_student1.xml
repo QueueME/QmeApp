@@ -19,7 +19,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Velg fag!"
+            android:text="Choose your subjects!"
             android:textColor="@android:color/white"
             android:textSize="@dimen/slide_title"
             android:textStyle="bold" />
@@ -30,7 +30,7 @@
             android:layout_marginTop="20dp"
             android:paddingLeft="@dimen/desc_padding"
             android:paddingRight="@dimen/desc_padding"
-            android:text="Søk på fagene du tar og legg til i din liste"
+            android:text="Search for the subjects you are taking and add them to your list "
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="@dimen/slide_desc" />

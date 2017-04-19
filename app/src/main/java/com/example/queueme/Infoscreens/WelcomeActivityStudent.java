@@ -75,10 +75,11 @@ public class WelcomeActivityStudent extends AppCompatActivity {
         // layouts of all welcome sliders
         // add few more layouts if you want
         layouts = new int[]{
+                R.layout.welcome_slide,
                 R.layout.welcome_slide_student1,
                 R.layout.welcome_slide_student2,
-                R.layout.welcome_slide_student3,
-                R.layout.welcome_slide_student4};
+                R.layout.welcome_slide_student4,
+        };
 
         // adding bottom dots
         addBottomDots(0);
