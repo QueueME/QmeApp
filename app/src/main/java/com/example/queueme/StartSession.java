@@ -61,7 +61,7 @@ public class StartSession extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(StartSession.this, ChooseSubjectAss.class));
-
+                finish();
             }
         });
         //gets user ingo

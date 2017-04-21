@@ -65,7 +65,7 @@ public class ChooseSubjectStud extends Activity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ChooseSubjectStud.this, StudOrAss.class));
-
+                finish();
             }
         });
         //finds buttons ect

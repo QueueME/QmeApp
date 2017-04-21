@@ -13,6 +13,11 @@ public class Beginning extends AppCompatActivity {
     private Button login;
     private Button reg;
     private FirebaseAuth auth;
+    @Override
+    public void onBackPressed()
+    {
+        finish();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +40,7 @@ public class Beginning extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Beginning.this, LoginActivity.class));
-
+                finish();
             }
         });
         //sends you yo signupactivity
@@ -43,7 +48,7 @@ public class Beginning extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Beginning.this, SignupActivity.class));
-
+                finish();
             }
         });
 

@@ -72,6 +72,7 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
                 intent.putExtra("emnekode",emnekode);
                 intent.putExtra("emnenavn",emnenavn);
                 startActivity(intent);
+                finish();
             }
         });
         //fins
