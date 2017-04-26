@@ -148,8 +148,8 @@ public class StudassQueue extends AppCompatActivity {
                         students.remove(students.indexOf(personinlist));
                     }else{
 
-                    }
                 }
+            }
                 nr.setText(String.valueOf(linecount()));
                 if (!students.isEmpty()) {
 
@@ -182,7 +182,9 @@ public class StudassQueue extends AppCompatActivity {
         nr.setText(String.valueOf(linecount()));
             if(!students.isEmpty()) {
                 next_in_line.setVisibility(View.VISIBLE);
+
                 person.setText(students.get(0).getName() + " is next in line");
+                person.setVisibility(View.VISIBLE);
                 //setting imageview based on gender
                 if (students.get(0).isMale()){
                     im.setImageResource(R.drawable.astudfull);

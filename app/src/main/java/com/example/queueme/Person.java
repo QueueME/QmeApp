@@ -19,7 +19,6 @@ public class Person {
 
     }
 
-
     //getters and setters
     public boolean isMale() {
         return isMale;
