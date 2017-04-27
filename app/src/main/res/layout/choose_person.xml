@@ -27,7 +27,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
-            android:text="ALL AVAILIBLE STUDENT ASSISTANT IN THIS SUBJECT:"
+            android:text="ALL AVAILABLE STUDENT ASSISTANT IN THIS SUBJECT:"
             android:textAlignment="center"
             android:textColor="@color/input_register"
             app:layout_constraintBottom_toBottomOf="parent"
