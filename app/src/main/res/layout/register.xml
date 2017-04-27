@@ -14,7 +14,7 @@
         android:layout_height="50dp"
         android:background="@android:color/background_light"
         android:ems="10"
-        android:hint="Email"
+        android:hint="Student email"
         android:inputType="textEmailAddress"
         app:layout_constraintLeft_toRightOf="@+id/imageView7"
         android:layout_marginLeft="0dp"
