@@ -32,7 +32,7 @@
             android:textAlignment="center" />
     </LinearLayout>
     <!-- activity_screen_slide.xml -->
-    <com.example.queueme.MySessionSwipeFunction.CustomViewPager xmlns:android="http://schemas.android.com/apk/res/android"
+    <com.app.queueme.MySessionSwipeFunction.CustomViewPager xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="350dp"
