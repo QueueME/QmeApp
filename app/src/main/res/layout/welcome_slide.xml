@@ -46,7 +46,7 @@
         android:layout_below="@+id/linearLayout3"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-        android:text="This screen well only popup the first time you enter the app. You can always find it again on settings"
+        android:text="This screen will only popup the first time you enter the app. You can always find it again on settings"
         android:textAlignment="center"
         android:textColor="@android:color/background_light" />
 </RelativeLayout>

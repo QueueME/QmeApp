@@ -109,24 +109,5 @@
         android:layout_alignLeft="@+id/count"
         android:layout_alignStart="@+id/count" />
 
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/name"
-        android:layout_alignBaseline="@+id/textView13"
-        android:layout_alignBottom="@+id/textView13"
-        android:layout_alignLeft="@+id/avilible_until"
-        android:layout_alignStart="@+id/avilible_until" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/name"
-        android:layout_alignBaseline="@+id/mail"
-        android:layout_alignBottom="@+id/mail"
-        android:layout_alignLeft="@+id/name"
-        android:layout_alignStart="@+id/name" />
 
 </RelativeLayout>

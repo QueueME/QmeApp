@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 
 public class StudassQueue extends AppCompatActivity {
@@ -142,14 +143,13 @@ public class StudassQueue extends AppCompatActivity {
 
                 //deletes the person from local list
                 Person person1 = dataSnapshot.getValue(Person.class);
-                for (Person personinlist:students){
-                    if (person1.getUid()==personinlist.getUid()){
-                        //nr.setText(String.valueOf(students.indexOf(personinlist)));
-                        students.remove(students.indexOf(personinlist));
-                    }else{
-
+                for (Iterator<Person> iterator = students.iterator(); iterator.hasNext(); ) {
+                    Person person = iterator.next();
+                    if (person.getUid()==person1.getUid()) {
+                        iterator.remove();
+                    }
                 }
-            }
+
                 nr.setText(String.valueOf(linecount()));
                 if (!students.isEmpty()) {
 
