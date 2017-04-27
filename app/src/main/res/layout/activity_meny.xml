@@ -167,7 +167,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:background="@color/btn_logut_bg"
-            android:text="Turtorial stud.ass"
+            android:text="Tutorial stud.ass"
             android:textColor="@android:color/background_light" />
 
         <Button
@@ -176,7 +176,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:background="@color/btn_logut_bg"
-            android:text="Turtorial student"
+            android:text="Tutorial student"
             android:textColor="@android:color/background_light" />
 
     </LinearLayout>
