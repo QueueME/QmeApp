@@ -142,8 +142,6 @@ public class InQueue extends AppCompatActivity {
                 count.setText(""+ linecount()+"");
                 //ifsetning
                 nrinline.setText("" + nrInline() + "");
-                Toast.makeText(InQueue.this, "Master",
-                        Toast.LENGTH_SHORT).show();
                 if (!students.isEmpty()) {
                     if ((students.get(0).getUid() == uid)&& !first) {
                         first=true;
