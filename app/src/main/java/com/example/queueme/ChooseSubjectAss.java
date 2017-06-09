@@ -57,7 +57,7 @@ public class ChooseSubjectAss extends Activity {
 
         FirebaseApp.initializeApp(this);
 
-
+        //TOOLBAR---
         meny = (Button) findViewById(R.id.meny);
         meny.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +74,7 @@ public class ChooseSubjectAss extends Activity {
                 finish();
             }
         });
+        //---TOOLBAR
 
         //activity_coose_subject_ass
 
@@ -106,17 +107,18 @@ public class ChooseSubjectAss extends Activity {
         //henter info om bruker
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         this.uid=user.getUid();
-
+        //leser fra databsen
         myRef.child("Person").child(user.getUid()).child("FavoriteAssSubject").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
                 no_added_subject.setVisibility(View.INVISIBLE);
 
                 subjects.clear();
-                //get all of the children of this level.
+                //henter ut alle fag fra "FavoriteAssSubject
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
 
-                //shake hands with each of them
+                //legger vi alle fagene i en lokal liste
                 for (DataSnapshot child: children){
                     Subject subject = child.getValue(Subject.class);
                     subjects.add(subject);
@@ -195,9 +197,6 @@ public class ChooseSubjectAss extends Activity {
                         for (DataSnapshot child: children){
                             Subject subject = child.getValue(Subject.class);
                             subjects.add(subject);
-
-
-
                         }
 
                         //lager arrayadapter som viser listene

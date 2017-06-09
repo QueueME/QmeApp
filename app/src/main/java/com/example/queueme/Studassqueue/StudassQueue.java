@@ -46,6 +46,7 @@ public class StudassQueue extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_studass_queue);
+
         //gets infor fram last page
         Intent intent = getIntent();
         emnenavn = intent.getStringExtra("emnenavn");
@@ -63,7 +64,7 @@ public class StudassQueue extends AppCompatActivity {
         ref = database.getReference("Subject");
         DatabaseReference myRef = database.getReference("Subject");
         final DatabaseReference myRef2 = database.getReference("Subject");
-        //sets onclick for endig queueu.
+        //hvis jeg trykker "quit queue"
         end =(Button) findViewById(R.id.end);
         end.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +78,7 @@ public class StudassQueue extends AppCompatActivity {
                 dialog.show();
                 Button yes = (Button) mView.findViewById(R.id.yes);
                 Button no = (Button) mView.findViewById(R.id.no);
+                //hvis ja
                 yes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -128,7 +130,9 @@ public class StudassQueue extends AppCompatActivity {
                 if (students.isEmpty()){
                     next.setVisibility(View.VISIBLE);
                 }
+                //henter ut info om personen som ble lagt til i køen
                 fetchData(dataSnapshot);
+                //oppdaterer jeg infoen slik at den viser infoen til den som er først i køen (dvs student(0))
                 Next();
             }
 

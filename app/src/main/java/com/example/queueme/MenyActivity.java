@@ -37,7 +37,7 @@ public class MenyActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         //get current user
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        //instansietes autListener
+        //instansietes autListener-sjekker kontinuerlig om brukeren slettes. Hvis den slettes så sendes man til loginskjerm
         authListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -79,7 +79,7 @@ public class MenyActivity extends AppCompatActivity {
         changePassword.setVisibility(View.GONE);
         sendEmail.setVisibility(View.GONE);
         remove.setVisibility(View.GONE);
-        //sets progressbar
+        //sets progressbar for å tydeligjøre at den jobber
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         if (progressBar != null) {
             progressBar.setVisibility(View.GONE);
@@ -220,7 +220,7 @@ public class MenyActivity extends AppCompatActivity {
                 remove.setVisibility(View.GONE);
             }
         });
-        //onclick sende emalil with password
+        //onclick sende emalil with password-STANDARD FIREBASE IKKE VITS I Å SKJØNNE
         sendEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -245,11 +245,11 @@ public class MenyActivity extends AppCompatActivity {
                 }
             }
         });
-        // onclick for removing user
+        // onclick for removing user -IKKE PRØV Å SKJØNN, ER STANDARD FIREBASE
         btnRemoveUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //lager en popup for å spørre om brukeren er sikker på å slete  bruker
                 final AlertDialog.Builder mbuilder = new AlertDialog.Builder(MenyActivity.this);
                 View mView= getLayoutInflater().inflate(R.layout.remove_user,null);
                 mbuilder.setView(mView);
@@ -257,10 +257,11 @@ public class MenyActivity extends AppCompatActivity {
                 dialog.show();
                 Button yes = (Button) mView.findViewById(R.id.yes);
                 Button no = (Button) mView.findViewById(R.id.no);
-
+                //hvis ja:
                 yes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        //standar kode som er fucka
                         progressBar.setVisibility(View.VISIBLE);
                         if (user != null) {
                             user.delete()
@@ -282,7 +283,7 @@ public class MenyActivity extends AppCompatActivity {
 
                     }
                 });
-
+                //hvis nei
                 no.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -297,6 +298,7 @@ public class MenyActivity extends AppCompatActivity {
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //lager popup for å spøøre om brukeren er sikker på at de vil logge ut
                 final AlertDialog.Builder mbuilder = new AlertDialog.Builder(MenyActivity.this);
                 View mView= getLayoutInflater().inflate(R.layout.sign_out,null);
                 mbuilder.setView(mView);
@@ -304,7 +306,7 @@ public class MenyActivity extends AppCompatActivity {
                 dialog.show();
                 Button yes = (Button) mView.findViewById(R.id.yes);
                 Button no = (Button) mView.findViewById(R.id.no);
-
+                //hvis ja
                 yes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -312,7 +314,7 @@ public class MenyActivity extends AppCompatActivity {
 
                     }
                 });
-
+                //hvis nei
                 no.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

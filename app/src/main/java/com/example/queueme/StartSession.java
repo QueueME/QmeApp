@@ -128,27 +128,29 @@ public class StartSession extends AppCompatActivity implements View.OnClickListe
 
 
     private void QueueMe(){
-        //instanciates database
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        //lager en komling til databasen
         FirebaseDatabase database = FirebaseDatabase.getInstance();
+        //henter ut info om meg
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
+        //legger til timestamp på meg siden jeg skal være studass
         DatabaseReference myRef = database.getReference("Person");
         myRef.child(user.getUid()).child("time_to_stop").setValue( time.getText().toString());
 
-        //creates person to be added in firebase
+        //lager et duplikat av meg selv som studass som jeg skal legge inn under et fag slik at
+        //studenter kan se meg og legge meg til
         Person person = new Person();
         person.setTime_to_stop(time.getText().toString());
         person.setName(myName);
         person.setEmail(user.getEmail());
         person.setUid(user.getUid());
-
         Boolean gender = prefs.getBoolean("gender", false);
         person.setMale(gender);
-
+        //legger jeg meg inn under det valgte faget.
         DatabaseReference myRef2 = database.getReference("Subject");
         myRef2.child(emnekode).child("StudAssList").child(user.getUid()).setValue(person);
 
-        //puts info to Studassqueue
+        //tar med info om faget inn i neste aktivitet for å vite hviket fag jeg er i
         Intent moveToDetailIntent = new Intent(StartSession.this,com.example.queueme.Studassqueue.StudassQueue.class);
         moveToDetailIntent.putExtra("emnekode",emnekode);
         moveToDetailIntent.putExtra("emnenavn",emnenavn);

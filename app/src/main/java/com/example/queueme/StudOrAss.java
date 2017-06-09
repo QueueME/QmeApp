@@ -18,7 +18,7 @@ public class StudOrAss extends AppCompatActivity implements View.OnClickListener
 
 
 
-
+    //overrider tilbakeknappen på androiden
     @Override
     public void onBackPressed()
     {
@@ -30,7 +30,7 @@ public class StudOrAss extends AppCompatActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.alternative_home);
-
+        //definerer knapper
         btnass=(Button) findViewById(R.id.btnass);
         btnstud=(Button) findViewById(R.id.btnstud);
         //swipe=(Button) findViewById(R.id.swipe);

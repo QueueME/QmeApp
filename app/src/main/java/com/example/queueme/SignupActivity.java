@@ -44,15 +44,18 @@ public class SignupActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register);
         FirebaseApp.initializeApp(this);
+
+
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
-
+        //definerer checkboxer. Er en egen funksjon som man senere kan sjekke om er avkrysset eller ikke :)
         male = (CheckBox) findViewById(R.id.male);
         female = (CheckBox) findViewById(R.id.female);
+        //pref manager er appens interne minne. Dvs ikke tilknyttet appen. Her kan vi lagre enkle verdier
+        //slik at vi ikke trenger å hente den fra databasen hver gang
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         btnSignIn = (Button) findViewById(R.id.sign_in_button);
@@ -71,7 +74,7 @@ public class SignupActivity extends AppCompatActivity {
                 startActivity(new Intent(SignupActivity.this, ResetPasswordActivity.class));
             }
         });
-        //onclick for signing in
+        //onclick for signing in-- aner ikke hvilken kanpp dette er hehe
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,11 +86,12 @@ public class SignupActivity extends AppCompatActivity {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //henter ut variablene fra edittekstene
                 final String name = inputName.getText().toString();
                 String email = inputEmail.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
 
-
+                //validerer. Vi har definert nye validereinger så trenger IKKE SE PÅ DISSE
                 int blank = name.indexOf(' ');
 
                 if (blank == -1){
@@ -118,10 +122,10 @@ public class SignupActivity extends AppCompatActivity {
                     return;
                 }
 
-
+                //synligjør progressbar for å vise at den jobber
                     progressBar.setVisibility(View.VISIBLE);
 
-                //create user
+                //create user- INNEBYG FIREBASE FUNKJSON
                 auth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
@@ -135,7 +139,12 @@ public class SignupActivity extends AppCompatActivity {
                                     Toast.makeText(SignupActivity.this, "Authentication failed." + task.getException(),
                                             Toast.LENGTH_SHORT).show();
                                 } else {
+                                    //HVIS ALT ER OK
+                                    //createPersonFromUser lager en person utifra edittekstene som legges i databasen
+                                    //dette er fordi vi må ha kontroll over personene i databasen, ikke bare brukere
+                                    //SPESIFISERER UID FOR Å VITE HVOR PERSONEN LAGRES SLIK AT VI KAN GÅ INN PÅ HAN IGJEN
                                     createPersonFromUser(name);
+                                    //sender brukeren viere til hjemskjerm. er nå logget inn
                                     startActivity(new Intent(SignupActivity.this, StudOrAss.class));
                                     finish();
                                 }
@@ -151,8 +160,9 @@ public class SignupActivity extends AppCompatActivity {
     private void createPersonFromUser(String fullname){
         String useruid="";
         String useremail="";
-
+        //trenger å finne den genererte UID. Henter da ut all info fra brukeren via standarisert funksjon:
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        //får da all info
 
         if (user != null) {
             // Name, email address, and profile photo Url
@@ -164,6 +174,7 @@ public class SignupActivity extends AppCompatActivity {
         Person person =new Person();
         person.setName(fullname);
         person.setEmail(useremail);
+        //SPESIFISERER UID SLIK AT VI VET HVOR I DATABASEN PERSONEN LIGGE. denne kommer fra FIREBASE user
         person.setUid(useruid);
         person.setTime_to_stop("0");
 
@@ -176,9 +187,11 @@ public class SignupActivity extends AppCompatActivity {
             person.setMale(false);
         }
 
-        //setting value
+        //Standar måte å connecte til firebase database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
+        //sier at jeg skal legge til noe under noden "Person"
         DatabaseReference myRef= database.getReference("Person");
+        //lager jeg en ny node under "Person" som heter useruid (child(useruid) og setter inn personen.
         myRef.child(useruid).setValue(person);
 
     }

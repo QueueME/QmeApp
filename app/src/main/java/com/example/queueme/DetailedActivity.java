@@ -92,6 +92,7 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
         DatabaseReference myRef = database.getReference("Subject");
         final DatabaseReference myRef2 = database.getReference("Subject").child(emnekode).child("StudAssList");
         //retireves a list of persons from database
+        //KUNNE BARE BRUKT INNEBYGD FIREBASE GETCOUNT
         myRef.child(emnekode).child("StudAssList").child(personuid).child("Queue").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -110,7 +111,7 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
 
             }
         });
-
+        //KUNNE HENTET UT FRA FORRIGE SIDE
         //retrieves list of studassess from firebase
         Query queryRef =myRef2.orderByChild("uid").equalTo(personuid);
         queryRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -133,6 +134,7 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
 
             }
         });
+        //KUNNE BARE BRUKT SHARED PREFERANCES
         //retriebes user
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         //retrieves users name
@@ -151,17 +153,18 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
             }
         });
     }
-
+    //UBRUKT
     private void fetchData(DataSnapshot dataSnapshot) {
         Person person = dataSnapshot.getValue(Person.class);
         persons.add(person);
     }
+    //UBRUKT
 
     private void fetchDataDelete(DataSnapshot dataSnapshot) {
         Person person = dataSnapshot.getValue(Person.class);
         persons.remove(person);
     }
-
+    //KUNNE VÆRT UBRUKT VED BRUK AV INNEBYG GETCOUNT
     private int linecount() {
         return persons.size();
     }
@@ -169,10 +172,11 @@ public class DetailedActivity extends AppCompatActivity implements View.OnClickL
 
 
     private void QueueMe(){
+        //HENTER UT INFO OM BRUKER
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String email=user.getEmail();
         String uid=user.getUid();
-
+        //LAGER JEG ET DUBLIKAT SOM JEG SKAL LEGGE I KØEN TIL EN STUDASS I DET FAGET JEG HAR VALGT
         Person person =new Person();
         person.setEmail(user.getEmail());
         person.setName(myName);

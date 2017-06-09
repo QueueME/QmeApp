@@ -81,30 +81,36 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //setter variablene fra edittekstene
                  email = inputEmail.getText().toString();
                 final String password = inputPassword.getText().toString();
-
+                //validerer at ingen av edittekstene er tomme
                 if (TextUtils.isEmpty(email)) {
+                    //lager en toast/popup med tekst "enter email adress"
                     Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
                 if (TextUtils.isEmpty(password)) {
                     Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
+                //gjør progressbaren tydelig slik at den viser at appen jobber
                 progressBar.setVisibility(View.VISIBLE);
 
-                //authenticate user
+                //authenticate user- standard firebase funkjson. Se "tools--> firebase"
                 auth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
+                                //---(STANDARD KOMMENTARER FAR FIREBASE)---
                                 // If sign in fails, display a message to the user. If sign in succeeds
                                 // the auth state listener will be notified and logic to handle the
                                 // signed in user can be handled in the listener.
+                                //-----
+                                //skjuler progressbar fordi den er ferdig å jobe
                                 progressBar.setVisibility(View.GONE);
+                                //Validerer
                                 if (!task.isSuccessful()) {
                                     // there was an error
                                     if (password.length() < 6) {
@@ -113,6 +119,7 @@ public class LoginActivity extends AppCompatActivity {
                                         Toast.makeText(LoginActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
                                     }
                                 } else {
+                                    //hvis alt er good og den logger seg inn:gå til studor studas
                                     Intent intent = new Intent(LoginActivity.this, StudOrAss.class);
                                     startActivity(intent);
                                     finish();

@@ -105,9 +105,11 @@ public class InQueue extends AppCompatActivity {
                 dialog.show();
                 Button yes = (Button) mView.findViewById(R.id.yes);
                 Button no = (Button) mView.findViewById(R.id.no);
+                //HVIS JA
                 yes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        //SLETTER SEG FRA DATABASEN OG SENDER SEG TIL HJEMSKJERM
                         removeQueue(myRef2);
 
                     }
